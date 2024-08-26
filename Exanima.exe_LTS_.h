@@ -70,6 +70,10 @@ struct TAA3f;
 struct TAGridEntry;
 struct TAA4b;
 struct TAMeshModifier;
+struct TCursorAction;
+struct TSGContainerItem;
+struct TPhysicsControlller;
+struct TPhysPrioHandle;
 
 /* 1 */
 struct RUNTIME_FUNCTION
@@ -1608,8 +1612,10 @@ struct TGUIForm
   int CAp0;
   int CAp1;
   float HS_Stp;
-  __declspec(align(8)) int StoreState;
-  __declspec(align(8)) __int32 PosX;
+  char _GAP_14[4];
+  int StoreState;
+  char _GAP_1C[4];
+  __int32 PosX;
   int PosY;
   __int32 Width;
   __int32 Height;
@@ -1629,29 +1635,38 @@ struct TGUIForm
   FormStyle_ENUM FormStyle;
   char SpcType;
   char FormStyleEx;
+  char _GAP_67;
   int HitCode;
   int CaptureCode;
   int FocusCode;
-  __declspec(align(8)) char CaptureHit;
+  char _GAP_74[4];
+  char CaptureHit;
   char FVisible;
+  char _GAP_7A[6];
   void *pCaption;
-  _BYTE gap88[8];
+  char _GAP_88[8];
   signed __int32 Controls;
+  char _GAP_94[4];
   TAControlArray *pControl;
   void *pParent;
   int Children;
+  char _GAP_AC[4];
   void *pChild;
   int FormClassID;
+  char _GAP_BC[4];
   void *Owner;
   int ClntQds;
+  char _GAP_CC[4];
   void *pClntQd;
   int HS_Pos;
   int VS_Pos;
   float VS_Stp;
+  char _GAP_E4[4];
   void *BkCol0;
   void *BkCol1;
-  _BYTE gapF8[8];
+  char _GAP_F8[8];
   __int32 Glyph;
+  char _GAP_104[4];
   void *pOnClose;
   void *pOnScroll;
   char OwnsControls;
@@ -1659,6 +1674,7 @@ struct TGUIForm
   char Closing;
   char WantsFree;
   char AniState;
+  char _GAP_11D[3];
   __int64 AniTime;
   void *AniType;
   void *Task;
@@ -1672,17 +1688,17 @@ struct TGUIForm_vmt_struct
   __int64 FormAllocSize;
   __int64 FormAllocSizeInverted;
   int *pFormTypeParent;
-  int *pFormName;
+  char *pFormName;
   void *field_20;
   void *field_28;
   void *field_30;
   __int64 *field_38;
-  __int64 *field_40;
+  __int64 *ObjectDynArraysInfo;
   void *field_48;
   void *field_50;
   void *field_58;
   __int64 *Destroy;
-  int *NewInstance;
+  __int64 *NewInstance;
   __int64 *FreeInstance;
   __int64 *SafeCallException;
   __int64 *field_80;
@@ -1700,7 +1716,7 @@ struct TGUIForm_vmt_struct
   __int64 *QueryDragDrop;
   __int64 *DoDragDrop;
   __int64 *DragDropped;
-  int *AssignControls;
+  __int64 *AssignControls;
   __int64 *DragDrop;
   __int64 *CalcSizes;
   __int64 *OnScaleUI;
@@ -2152,70 +2168,6 @@ struct TToolTip_vmt_struct
   void (__fastcall *TAbstractToolTip__Hide)(__int64);
   void *field_1C0;
   __int64 field_1C8;
-  char Name[16];
-  void *CurrentVMT;
-};
-
-/* 3242 */
-struct TGUIForm_vmt_struct_WRONG
-{
-  __int64 FormAllocSize;
-  __int64 FormAllocSizeInverted;
-  int *pFormTypeParent;
-  int *pFormName;
-  __int64 Empty1;
-  __int64 Empty2;
-  __int64 Empty3;
-  __int64 *field_38;
-  __int64 *field_40;
-  __int64 Empty4;
-  __int64 Empty5;
-  __int64 Empty6;
-  __int64 *Destroy;
-  int *Create;
-  __int64 *ClassDestroy;
-  __int64 *field_78;
-  __int64 *field_80;
-  __int64 *AfterConstruction;
-  __int64 *BeforeDestruction;
-  __int64 *field_98;
-  __int64 *CursorActivate;
-  __int64 *CursorDeactivate;
-  __int64 *CursorMove;
-  __int64 *field_B8;
-  __int64 *field_C0;
-  __int64 *field_C8;
-  __int64 *TimerActivate;
-  __int64 *FocusTimer;
-  __int64 *SetFocusCode;
-  __int64 *WheelScroll;
-  __int64 *MsgKeyDown;
-  int *Draw;
-  __int64 *field_100;
-  __int64 *TGUIForm_UnknownFunc;
-  __int64 *FadeEffect;
-  __int64 *Show;
-  __int64 *Hide;
-  void *field_128;
-  void *field_130;
-  void *field_138;
-  void *field_140;
-  void *field_148;
-  void *field_150;
-  void *field_158;
-  void *field_160;
-  void *field_168;
-  void *field_170;
-  void *field_178;
-  void *field_180;
-  void *field_188;
-  void *field_190;
-  void *field_198;
-  void *field_1A0;
-  void *field_1A8;
-  void *field_1B0;
-  void *field_1B8;
-  __int64 *field_1C0;
   char Name[16];
   void *CurrentVMT;
 };
@@ -3058,11 +3010,11 @@ struct __declspec(align(8)) T3DNode
   TA3f WCnt;
   float RExt;
   TA3f CBExt;
+  char _GAP_3C[4];
   TA4x3f WrlMat;
   TA4x3f LclMat;
   TA4x4f GLMat;
   int VisBits;
-  _BYTE _GAP_E0[4];
   int ValidateID;
   TA4x3f InjMat;
   signed __int32 Children;
@@ -3075,7 +3027,7 @@ struct __declspec(align(8)) T3DNode
   signed __int32 KFControllers;
   _BYTE _GAP_154[4];
   unsigned __int64 *KFController;
-  unsigned __int64 *PhysObj;
+  TPhysicsControlller *PhysObj;
   signed __int32 Instances;
   _BYTE _GAP_16C[4];
   unsigned __int64 *Instance;
@@ -3138,10 +3090,34 @@ struct T3DNode_vmt_struct
   void *field_110;
 };
 
+/* 4407 */
+struct __unaligned __declspec(align(4)) TPhysicsControlller
+{
+  void *VMT;
+  unsigned __int32 PCFlags;
+  unsigned __int32 PCState;
+  unsigned __int32 SimStep;
+  T3DNode *CObj;
+  __int64 InstanceOf;
+  TA3f CrdShft;
+  signed __int32 GrdLoc;
+  TPhysicsControlller *GrdPrv;
+  TPhysicsControlller *GrdNxt;
+  TPhysPrioHandle ColHandle;
+};
+
 /* 4362 */
 struct TAByte
 {
   char Array[8];
+};
+
+/* 4408 */
+struct TPhysPrioHandle
+{
+  __int16 I;
+  __int16 R;
+  int C;
 };
 
 /* 4359 */
@@ -3160,11 +3136,11 @@ struct __declspec(align(8)) TGeometry
   TA3f WCnt;
   float RExt;
   TA3f CBExt;
+  char _GAP_3C[4];
   TA4x3f WrlMat;
   TA4x3f LclMat;
   TA4x4f GLMat;
-  int VisBits;
-  char _GAP_E0[4];
+  unsigned __int32 VisBits;
   int ValidateID;
   TA4x3f InjMat;
   signed __int32 Children;
@@ -3177,7 +3153,7 @@ struct __declspec(align(8)) TGeometry
   signed __int32 KFControllers;
   char _GAP_154[4];
   unsigned __int64 *KFController;
-  unsigned __int64 *PhysObj;
+  TPhysicsControlller *PhysObj;
   signed __int32 Instances;
   char _GAP_16C[4];
   unsigned __int64 *Instance;
@@ -3307,12 +3283,12 @@ struct __declspec(align(8)) TMesh
   TA3f WCnt;
   float RExt;
   TA3f CBExt;
+  char _GAP_3C[4];
   TA4x3f WrlMat;
   TA4x3f LclMat;
   TA4x4f GLMat;
-  int VisBits;
-  char _GAP_E0[4];
-  int ValidateID;
+  unsigned __int32 VisBits;
+  unsigned __int32 ValidateID;
   TA4x3f InjMat;
   signed __int32 Children;
   char _GAP_11C[4];
@@ -3324,15 +3300,16 @@ struct __declspec(align(8)) TMesh
   signed __int32 KFControllers;
   char _GAP_154[4];
   unsigned __int64 *KFController;
-  unsigned __int64 *PhysObj;
+  TPhysicsControlller *PhysObj;
   signed __int32 Instances;
   char _GAP_16C[4];
   unsigned __int64 *Instance;
   TGridPos GridPos;
   int ObjHandle;
   int FunctionID;
+  int NodeState_77777;
   int NodeState;
-  char _GAP_188[8];
+  char _GAP_18C[4];
   int RNGSeed;
   int GameClass;
   unsigned __int64 *MetaData;
@@ -3383,12 +3360,12 @@ struct __declspec(align(8)) TMesh
   TAByte *FcFlag;
   TAdword *SmoothGrp;
   TAFace *cFace;
-  char _GAP_2A8[8];
   TAFaceVRef *FGrp;
   TAnInt *VFRef;
   TAnInt *NFRef;
   TAInt *SmoothFace;
   signed __int32 SubDiv;
+  __declspec(align(8)) signed __int32 SubDiv2;
   char _GAP_2D4[4];
   TObject *FkdTree;
   unsigned __int32 EColBits;
@@ -3539,22 +3516,19 @@ struct __declspec(align(4)) TAFaceVRef
 /* 4378 */
 struct TAnInt
 {
-  signed __int32 field_0;
-  signed __int32 field_4;
-  signed __int32 field_8;
-  signed __int32 field_C;
+  int Array[4];
 };
 
 /* 4381 */
 struct __declspec(align(4)) TAInt
 {
-  int field_0[10];
+  int Array[10];
 };
 
 /* 4372 */
 struct TObject
 {
-  char field_0[32];
+  void *VMT;
 };
 
 /* 4392 */
@@ -3604,11 +3578,11 @@ struct __declspec(align(8)) TSubObject
   TA3f WCnt;
   float RExt;
   TA3f CBExt;
+  char _GAP_3C[4];
   TA4x3f WrlMat;
   TA4x3f LclMat;
   TA4x4f GLMat;
   int VisBits;
-  char _GAP_E0[4];
   int ValidateID;
   TA4x3f InjMat;
   signed __int32 Children;
@@ -3621,7 +3595,7 @@ struct __declspec(align(8)) TSubObject
   signed __int32 KFControllers;
   char _GAP_154[4];
   unsigned __int64 *KFController;
-  unsigned __int64 *PhysObj;
+  TPhysicsControlller *PhysObj;
   signed __int32 Instances;
   char _GAP_16C[4];
   unsigned __int64 *Instance;
@@ -3680,5 +3654,422 @@ struct PAByte
 struct TMeshModifier
 {
   unsigned __int32 ModID;
+};
+
+/* 4397 */
+struct T3DViewport
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  int StoreState;
+  char _GAP_1C[4];
+  __int32 PosX;
+  int PosY;
+  __int32 Width;
+  __int32 Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  int State;
+  FormStyle_ENUM FormStyle;
+  char SpcType;
+  char FormStyleEx;
+  char _GAP_67;
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char _GAP_74[4];
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *pCaption;
+  char _GAP_88[8];
+  signed __int32 Controls;
+  char _GAP_94[4];
+  TAControlArray *pControl;
+  void *pParent;
+  int Children;
+  char _GAP_AC[4];
+  void *pChild;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *pClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  char _GAP_E4[4];
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  __int32 Glyph;
+  char _GAP_104[4];
+  void *pOnClose;
+  void *pOnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  __int64 AniTime;
+  void *AniType;
+  void *Task;
+  int ModalResult;
+  char _GAP_13C[28];
+  signed __int32 CursorActions;
+  char _GAP_15C[4];
+  TCursorAction *CursorAction;
+  TCursorAction *CurCursorAction;
+  float Stereo0fs;
+  char _GAP_174[4];
+  __int64 OnWheelScroll;
+  __int16 _Unk_180;
+  char _GAP_182[6];
+  void *NavCameraControl;
+  void *CurActUpd;
+  unsigned __int32 ViewportID;
+  TA2i ViewportSize;
+  char _GAP_1A4[4];
+  void *View;
+  char _GAP_1B0[16];
+  void *Camera;
+  char _GAP_1C8[4];
+  unsigned __int32 ValidateID;
+  unsigned __int32 FrameCounter;
+  int LastFPSTime;
+  __int64 FPSText;
+  __int64 LastFrameTime;
+  __int64 ftimedelta;
+  void *TScene;
+  void *NavControl;
+  void *CamControl;
+  void *OnDestroy;
+  void *_Unk_210;
+  void *OnDrawOverlays;
+};
+
+/* 4398 */
+struct TCursorAction
+{
+  unsigned __int32 Triggers;
+  char _GAP_4[4];
+  void *Action;
+};
+
+/* 4399 */
+struct TACursorAction
+{
+  char Array[2];
+};
+
+/* 4400 */
+struct __unaligned __declspec(align(4)) TGameEditControls_TODO
+{
+  void *VMT;
+  int CtrlState;
+  char _GAP_C[4];
+  TMesh *InputSel;
+  T3DViewport *View;
+  unsigned __int32 UseItemUID;
+  char _GAP_24[4];
+  TGUIForm *UseItemSrc;
+  T3DNode *UseItemNod;
+  int UseItemHnd;
+  TA4x3f MoveStartPts;
+  float IntHgt;
+  float IntDst;
+  TA3f IntPos;
+  TA3f IntPos2;
+  TA4x3f IntPln;
+  unsigned __int32 UpdateItemMode;
+  unsigned __int32 UpdateItemOUID;
+};
+
+/* 4401 */
+struct __declspec(align(8)) TMesh_backup
+{
+  TMesh_vmt_struct *VMT;
+  int NodeFlag;
+  int ObjFlag;
+  TA3f LCnt;
+  int xmmFiller1;
+  TA3f WCnt;
+  float RExt;
+  TA3f CBExt;
+  char _GAP_3C[4];
+  TA4x3f WrlMat;
+  TA4x3f LclMat;
+  TA4x4f GLMat;
+  unsigned __int32 VisBits;
+  unsigned __int32 ValidateID;
+  TA4x3f InjMat;
+  signed __int32 Children;
+  char _GAP_11C[4];
+  unsigned __int64 *Child;
+  unsigned __int64 *Parent;
+  unsigned __int64 *Sector;
+  unsigned __int64 *InstanceOf;
+  char Name[16];
+  signed __int32 KFControllers;
+  char _GAP_154[4];
+  unsigned __int64 *KFController;
+  unsigned __int64 *PhysObj;
+  signed __int32 Instances;
+  char _GAP_16C[4];
+  unsigned __int64 *Instance;
+  TGridPos GridPos;
+  int ObjHandle;
+  int FunctionID;
+  int NodeState;
+  char _GAP_188[8];
+  int RNGSeed;
+  int GameClass;
+  unsigned __int64 *MetaData;
+  TA3f VisPos;
+  float CScl;
+  TAByte *PhysData;
+  char ThreadLock;
+  char LoopLock;
+  char FEnabled;
+  char WorldData;
+  char _GAP_1BC[4];
+  unsigned __int64 *ExtData;
+  signed __int32 SubObjs;
+  char _GAP_1CC[4];
+  unsigned __int64 *SubObj;
+  signed __int32 OpqSubObjs;
+  signed __int32 FirstLgt;
+  unsigned __int64 *LgtLst;
+  char _GAP_1E8[16];
+  TA3f MaxLitOut;
+  unsigned __int32 GeomFlag;
+  signed __int32 VControllers;
+  char _GAP_20C[4];
+  unsigned __int64 *VController;
+  void *GeomCtrl;
+  float SdwOffset;
+  float SdwBias;
+  float MaxFade;
+  float Fade;
+  unsigned __int32 GeomState;
+  int RngSeed;
+  float EmisScale;
+  char _GAP_23C[4];
+  void *OnCompile;
+  char _GAP_248[8];
+  int CustomInstancing;
+  char _GAP_254[4];
+  void *ShadowExclude;
+  signed __int32 Faces;
+  signed __int32 VrtMaps;
+  TAVertexMapping *VrtMap;
+  signed __int32 VrtDats;
+  char _GAP_274[4];
+  TAVertexData *VrtDat;
+  signed __int32 CmpVrts;
+  char _GAP_284[4];
+  TAA3i *FcInd;
+  TAByte *FcFlag;
+  TAdword *SmoothGrp;
+  TAFace *cFace;
+  char _GAP_2A8[8];
+  TAFaceVRef *FGrp;
+  TAnInt *VFRef;
+  TAnInt *NFRef;
+  TAInt *SmoothFace;
+  signed __int32 SubDiv;
+  char _GAP_2D4[4];
+  TObject *FkdTree;
+  unsigned __int32 EColBits;
+  char _GAP_2E4[4];
+  TAInt *MatID;
+  TAdword *FaceID;
+  unsigned __int32 MeshFlag;
+  char _GAP_2FC[4];
+  unsigned __int64 *MorphData;
+  TGridEntry GrdEntry;
+  int GrdEntrs;
+  char _GAP_32C[4];
+  TAGridEntry *GrdEnAr;
+  signed __int32 Voxels;
+  char _GAP_33C[4];
+  TAA3f *LVoxel;
+  TAA2w *GVoxel;
+  signed __int32 HVoxels;
+  char _GAP_354[4];
+  TAA3f *HVoxel;
+  char _GAP_360[4];
+  signed __int32 PathWgt;
+  TAA4b *BloodBuf;
+  char _GAP_370[16];
+  signed __int32 Modifiers;
+  char _GAP_384[4];
+  TAMeshModifier *Modifier;
+  void *SphereIntProc;
+  void *Unk_1;
+  void *RayIntProcC;
+  void *Unk_2;
+  void *RayIntProcCT;
+  void *Unk_3;
+  void *RayIntProc2S;
+  void *Unk_4;
+  void *SphereSweepProc;
+  void *Unk_5;
+  void *field_3E0;
+  void *Unk_6;
+  void *SphereSweepColProc;
+  void *Unk_7;
+  void *field_400;
+  void *Unk_8;
+};
+
+/* 4402 */
+struct TGUIItemContainer
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  int StoreState;
+  char _GAP_1C[4];
+  __int32 PosX;
+  int PosY;
+  __int32 Width;
+  __int32 Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  int State;
+  FormStyle_ENUM FormStyle;
+  char SpcType;
+  char FormStyleEx;
+  char _GAP_67;
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char _GAP_74[4];
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *pCaption;
+  char _GAP_88[8];
+  signed __int32 Controls;
+  char _GAP_94[4];
+  TAControlArray *pControl;
+  void *pParent;
+  int Children;
+  char _GAP_AC[4];
+  void *pChild;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *pClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  char _GAP_E4[4];
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  __int32 Glyph;
+  char _GAP_104[4];
+  void *pOnClose;
+  void *pOnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  __int64 AniTime;
+  void *AniType;
+  void *Task;
+  int ModalResult;
+  char padding[28];
+  signed __int32 Items;
+  char _GAP_15C[4];
+  __int64 Item;
+};
+
+/* 4403 */
+struct TContainerItem
+{
+  TA2i Pos;
+  unsigned __int32 CItmI;
+  unsigned __int32 IHandle;
+  unsigned __int32 IState;
+  unsigned __int32 Flags;
+};
+
+/* 4404 */
+struct TAContainerItem
+{
+  TContainerItem Array[2];
+};
+
+/* 4405 */
+struct TSGItemContainer
+{
+  signed __int32 CItems;
+  char _GAP_4[4];
+  TSGContainerItem *CItem;
+};
+
+/* 4406 */
+struct TSGContainerItem
+{
+  unsigned __int32 ItmUID;
+  unsigned __int32 ItmState;
+  TA2f ItmPos;
+};
+
+/* 4409 */
+struct __unaligned __declspec(align(4)) TTetraRBD_TODO
+{
+  void *VMT;
+  unsigned __int32 PCFlags;
+  unsigned __int32 PCState;
+  unsigned __int32 SimStep;
+  T3DNode *CObj;
+  __int64 InstanceOf;
+  TA3f CrdShft;
+  signed __int32 GrdLoc;
+  TTetraRBD_TODO *GrdPrv;
+  TTetraRBD_TODO *GrdNxt;
+  TPhysPrioHandle ColHandle;
+  float _Unk_4C;
+  float _Unk_50;
+  TA4x3f IDPoint;
+  TA2x3f Cnstrnt;
+  TA4f PCnstrnt;
+  TA4x3f CrPoint;
+  TA4x3f PrPoint;
 };
 
