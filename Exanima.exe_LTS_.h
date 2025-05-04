@@ -4,11 +4,6 @@
    the type library 'Exanima.exe_LTS_'
 */
 
-#define __int8 char
-#define __int16 short
-#define __int32 int
-#define __int64 long long
-
 struct HWND__;
 struct _IMAGE_RUNTIME_FUNCTION_ENTRY;
 union _LARGE_INTEGER;
@@ -48,7 +43,9 @@ struct tagTLIBATTR;
 struct tagSAFEARRAY;
 struct tagDEC;
 struct IRecordInfoVtbl;
+struct TBaseGUISkin_vmt_struct;
 struct TGUIForm_vmt_struct;
+struct TGUITask_vmt_struct;
 struct TAControlArray;
 struct TAByte;
 struct TGeometry_vmt_struct;
@@ -64,15 +61,15 @@ struct TAInt;
 struct TAVertexData;
 struct TMesh_vmt_struct;
 struct T3DNode_vmt_struct;
-struct TAA2f;
 struct TAA2w;
 struct TAA3f;
 struct TAGridEntry;
 struct TAA4b;
 struct TAMeshModifier;
 struct TCursorAction;
+struct TACursorAction;
+struct TGameEditControls_TODO;
 struct TAContainerItem;
-struct TSGContainerItem;
 struct TPhysicsControlller;
 struct TPhysPrioHandle;
 struct TTetraRBD_TODO;
@@ -95,6 +92,7 @@ struct TConvexVol_TODO_UNVERIFIED;
 struct TScene_TODO;
 struct TRFImage_TODO_UNCORRECTED;
 struct TRect_UNVERIFIED;
+struct TEventHandler_UNVERIFIED;
 struct TAEventCallback;
 struct TFrameBuffer_TODO;
 struct TRenderer_TODO;
@@ -105,6 +103,7 @@ struct TGlobalAOMap_TODO_UNVERIFIED;
 struct TAConvexVol;
 struct TACHPoly;
 struct CStr;
+struct CP_StrGen;
 struct TAWorkQueueItem;
 struct TARBLink;
 struct TAColSphere;
@@ -119,16 +118,44 @@ struct TAbstractSkyGenerator_TODO_UNVERIFIED;
 struct TSceneEnvParams_UNVERIFIED;
 struct TRainEffect_TODO_UNVERIFIED;
 struct TSimulation_TODO_UNVERIFIED;
+struct TObjectDB_TODO_UNVERIFIED;
 struct TAObjDBEntry;
 struct TIconManager_TODO_UNVERIFIED;
 struct TItemRenderer_TODO_UNVERIFIED;
-struct TMemoryBlock_TODO_UNVERIFIED;
+struct TMemoryBlock_UNVERIFIED;
 struct TASector;
 struct TTextureSet_UNVERIFIED;
 struct TMaterial_TODO_UNVERIFIED;
 struct TaCharTexQueueItem;
-struct TInventory_TODO_UNVERIFIED;
 struct TAGUIForm;
+struct TGridEnvManager_TODO_UNVERIFIED;
+struct TAVoxelLight;
+struct TASimSector;
+struct TAMaterialRefList;
+struct TAMatRefListItem;
+struct TGUITask_FIX_END;
+struct TAKeyboardShort;
+struct TBaseGUISkin_UNVERIFIED;
+struct RFFont_UNVERIFIED;
+struct TTextRenderer_UNVERIFIED;
+struct TGUITableItemField_UNVERIFIED;
+struct TAGUITableColumn;
+struct TTreeNode_UNVERIFIED;
+struct TListItem_UNVERIFIED;
+struct TATreeNode;
+struct TAString;
+struct TListItemArray;
+struct TASGContainerItm;
+struct TTextBox_vmt_struct;
+struct TADataLibEntry;
+struct TALight;
+struct TAGUITableItem;
+struct TAMemBlockLibrary;
+struct TAPackageLibrary;
+struct TCharacterView_UNVERIFIED;
+struct TA3DNode;
+struct TATextureSet;
+struct TItemRemHandler_UNVERIFIED;
 
 /* 1 */
 struct RUNTIME_FUNCTION
@@ -593,7 +620,7 @@ union _LARGE_INTEGER
 typedef struct _devicemodeA DEVMODEA;
 
 /* 56 */
-struct _devicemodeA
+struct __declspec(align(4)) _devicemodeA
 {
   BYTE dmDeviceName[32];
   WORD dmSpecVersion;
@@ -601,7 +628,7 @@ struct _devicemodeA
   WORD dmSize;
   WORD dmDriverExtra;
   DWORD dmFields;
-  union #4312;
+  char anonymous_0[16];
   __int16 dmColor;
   __int16 dmDuplex;
   __int16 dmYResolution;
@@ -612,7 +639,7 @@ struct _devicemodeA
   DWORD dmBitsPerPel;
   DWORD dmPelsWidth;
   DWORD dmPelsHeight;
-  union #3300;
+  char anonymous_1[4];
   DWORD dmDisplayFrequency;
   DWORD dmICMMethod;
   DWORD dmICMIntent;
@@ -1534,12 +1561,11 @@ struct TGUIForm
   int CAp1;
   float HS_Stp;
   char _GAP_14[4];
-  int StoreState;
-  char _GAP_1C[4];
-  __int32 PosX;
-  int PosY;
-  __int32 Width;
-  __int32 Height;
+  void *StoreState;
+  signed int PosX;
+  signed int PosY;
+  int Width;
+  int Height;
   int Border;
   int BorderEx;
   int BorderIn;
@@ -1552,58 +1578,61 @@ struct TGUIForm
   int MinHeight;
   int MinWidth;
   int Style;
-  int State;
-  __int16 FormStyle;
-  char FormStyleEx;
-  char _GAP_67;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  __unaligned __declspec(align(1)) int FormStyleEx;
+  char _GAP_6A[2];
   int HitCode;
   int CaptureCode;
   int FocusCode;
-  char _GAP_74[4];
   char CaptureHit;
   char FVisible;
   char _GAP_7A[6];
-  void *pCaption;
+  void *Caption;
   char _GAP_88[8];
-  signed __int32 Controls;
+  signed int Controls;
   char _GAP_94[4];
-  TAControlArray *pControl;
-  void *pParent;
+  TAControlArray *Control;
+  TGUIForm *Parent;
   int Children;
   char _GAP_AC[4];
-  void *pChild;
+  TAGUIForm *Child;
   int FormClassID;
   char _GAP_BC[4];
   void *Owner;
   int ClntQds;
   char _GAP_CC[4];
-  void *pClntQd;
-  int HS_Pos;
-  int VS_Pos;
+  void *ClntQd;
+  float HS_Pos;
+  float VS_Pos;
   float VS_Stp;
   signed int Hgt;
-  void *BkCol0;
+  int BkCol0;
+  char _GAP_EC[4];
   void *BkCol1;
   char _GAP_F8[8];
-  __int32 Glyph;
+  unsigned int Glyph;
   char _GAP_104[4];
-  void *pOnClose;
-  void *pOnScroll;
-  char OwnsControls;
+  void *OnClose;
+  void *OnScroll;
+  bool OwnsControls;
   char FreeOnClose;
   char Closing;
   char WantsFree;
   char AniState;
   char _GAP_11D[3];
-  __int64 AniTime;
-  void *AniType;
-  void *Task;
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
   int ModalResult;
   char field_13C[12];
-  int VS_TPos;
-  float VS_TLen;
-  float HS_TPos;
-  float HS_TLen;
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
 };
 
 /* 3236 */
@@ -1627,14 +1656,14 @@ struct TGUIForm_vmt_struct
   __int64 *SafeCallException;
   __int64 *field_80;
   __int64 *AfterConstruction;
-  __int64 *field_90;
+  __int64 *BeforeDestruction;
   __int64 *field_98;
   __int64 *field_A0;
   __int64 *field_A8;
   __int64 *field_B0;
   __int64 *field_B8;
   __int64 *field_C0;
-  __int64 *field_C8;
+  __int64 *Close;
   __int64 *field_D0;
   __int64 *field_D8;
   __int64 *QueryDragDrop;
@@ -1644,7 +1673,7 @@ struct TGUIForm_vmt_struct
   __int64 *DragDrop;
   __int64 *CalcSizes;
   __int64 *OnScaleUI;
-  __int64 *SetVScroll;
+  void *SetVScroll;
   __int64 *GetHitCode;
   void *SetHitCode;
   void *field_130;
@@ -1681,43 +1710,49 @@ struct TGUIControl
   signed __int16 hgt;
   signed __int16 brd;
   unsigned __int16 GroupID;
-  __int64 *FCaption;
+  char *__shifted(CP_StrGen,0x18) FCaption;
   int Style;
   int State;
-  __int64 *Parent;
+  TGUIForm *Parent;
   __int64 *OnChange;
   __int64 *MsgProc;
   unsigned __int32 value;
   unsigned __int32 iDat0;
   __int64 *iDat1;
-  unsigned __int32 iDat3;
+  __int64 iDat3;
   unsigned __int32 iDat4;
   int Valf;
   float CD0f;
   float CD1f;
   float CD2f;
   int field_60;
-  int field_64;
 };
 
 /* 4351 */
-struct TAControlArray
+struct __declspec(align(8)) TAControlArray
 {
-  TGUIControl Control[];
+  TGUIControl Control[2];
 };
 
-/* 203 */
-struct TTextBox
+/* 4531 */
+struct TAGUIForm
 {
-  _BYTE gap0[8];
-  __int16 CAp0;
-  __declspec(align(4)) __int16 CAp1;
-  int HS_Stp;
-  __declspec(align(8)) int StoreState;
-  __declspec(align(8)) int PosX;
+  __int64 Array[2];
+};
+
+/* 4539 */
+struct __unaligned __declspec(align(1)) TGUITask_FIX_END
+{
+  TGUITask_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  __int32 PosX;
   int PosY;
-  int Width;
-  int Height;
+  __int32 Width;
+  __int32 Height;
   int Border;
   int BorderEx;
   int BorderIn;
@@ -1731,44 +1766,225 @@ struct TTextBox
   int MinWidth;
   int Style;
   int State;
-  char FormStyle;
+  byte FormStyle;
   char SpcType;
   char FormStyleEx;
+  char _GAP_67;
   int HitCode;
   int CaptureCode;
   int FocusCode;
-  __declspec(align(8)) char CaptureHit;
+  char _GAP_74[4];
+  char CaptureHit;
   char FVisible;
-  __int64 pCaption;
-  _BYTE gap88[8];
-  __int32 Controls;
-  __int64 pControl;
-  __int64 pParent;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed __int32 Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
   int Children;
-  __int64 pChild;
+  char _GAP_AC[4];
+  void *Child;
   int FormClassID;
-  __int64 Owner;
+  char _GAP_BC[4];
+  void *Owner;
   int ClntQds;
-  __int64 pClntQd;
+  char _GAP_CC[4];
+  void *ClntQd;
   int HS_Pos;
   int VS_Pos;
-  int VS_Stp;
-  __int64 BkCol0;
-  __int64 BkCol1;
-  _BYTE gapF8[8];
-  int Glyph;
-  __int64 pOnClose;
-  __int64 pOnScroll;
+  float VS_Stp;
+  signed int Hgt;
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  __int32 Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
   char OwnsControls;
   char FreeOnClose;
   char Closing;
   char WantsFree;
   char AniState;
-  __int64 AniTime;
-  __int64 AniType;
-  __int64 Task;
+  char _GAP_11D[3];
+  _BYTE gap120[8];
+  TGUITask_FIX_END *Task;
+  _BYTE gap130[8];
   int ModalResult;
-  char padding[28];
+  char field_13C[12];
+  int VS_TPos;
+  float VS_TLen;
+  float HS_TPos;
+  float HS_TLen;
+  TGUIForm *StoreFocusObj;
+  int StoreFocusCode;
+  int KBShortcuts;
+  TAKeyboardShort *KBShortcut;
+  TGUIForm *TaskMainForm;
+  TEventHandler_UNVERIFIED *OnRunTask;
+  _BYTE gap180[8];
+  void *_UNK;
+  unsigned int ValidateFlg;
+  unsigned int CValidateFlg;
+  char ModalLock;
+};
+
+/* 4542 */
+struct TBaseGUISkin_UNVERIFIED
+{
+  TBaseGUISkin_vmt_struct *VMT;
+  signed int FrmWdtO;
+  signed int FrmWdtI;
+  signed int TtlHgt;
+  char _GAP_14[8];
+  signed int BFrmWdtO;
+  signed int BFrmWdtI;
+  signed int BTtlHgt;
+  signed int BScrlWdt;
+  unsigned int CursorGraphic;
+};
+
+/* 4480 */
+struct __unaligned __declspec(align(1)) CP_StrGen
+{
+  __int16 CodePage;
+  __int16 _UNK_2;
+  char _GAP_4[4];
+  __int64 Flags;
+  __int64 Len;
+  char String;
+};
+
+/* 3237 */
+struct TGUITask_vmt_struct
+{
+  __int64 TGUITask_vmt;
+  __int64 field_8;
+  void *field_10;
+  void *aTguitask_1;
+  __int64 field_20;
+  __int64 field_28;
+  __int64 field_30;
+  void *field_38;
+  __int64 field_40;
+  __int64 field_48;
+  __int64 field_50;
+  __int64 field_58;
+  __int64 (__fastcall *TGUITask__Destroy)(__int64 *, __int64);
+  TGUIForm **(__fastcall *Create)(TGUIForm *);
+  __int64 (__fastcall *field_70)(__int64 *);
+  __int64 (*field_78)();
+  void (*nullsub_5)();
+  void (*anonymous_0)();
+  void (*anonymous_1)();
+  void (*anonymous_2)();
+  __int64 (__usercall *field_A0)@<rax>(_DWORD *@<rdx>, __int64 *@<rcx>, _DWORD *@<rdi>);
+  __int64 (__usercall *field_A8)@<rax>(unsigned __int8 *@<rdx>, __int64@<rcx>, _DWORD *@<rdi>);
+  bool (__fastcall *field_B0)(__int64, __int64);
+  __int64 (__fastcall *field_B8)(__int64);
+  void (__fastcall *field_C0)(__int64 *, __int64 *);
+  char (__fastcall *Close)(TGUIForm *, __int64);
+  __int64 (__fastcall *field_D0)(__int64);
+  void (*anonymous_3)();
+  __int64 (__fastcall *TGUIForm__QueryDragDrop)(TGUIForm *a1, unsigned int a2, unsigned int a3);
+  __int64 (__fastcall *TGUIForm__DoDragDrop)(__int64, __int64, unsigned int);
+  __int64 (__fastcall *TGUIForm__DragDropped)(TGUIForm *a1, unsigned int a2, int a3);
+  void (__fastcall *TGUIForm__AssignControls)(TGUIForm *, __int64, int, char);
+  void (*anonymous_4)();
+  __int64 (__fastcall *TGUIForm__CalcSizes)(TGUIForm *a1);
+  void (*anonymous_5)();
+  void (__fastcall *TGUIForm__SetVScroll)(TGUIForm *a1, float a2);
+  __int64 (__fastcall *field_120)(__int64, int, int, _QWORD *);
+  __int64 (__fastcall *TGUIForm__SetHitCode)(TGUIForm *a1, signed int a2);
+  char (__fastcall *field_130)(TGUIForm *a1, int a2, _DWORD *a3, _DWORD *a4);
+  __int64 (__fastcall *TGUIForm__CursorActivate)(TGUIForm *a1, __int64 a2, __int16 a3);
+  __int64 (__fastcall *TGUIForm__CursorDeactivate)(__int64, __int64, unsigned __int16);
+  __int64 (__fastcall *TGUIForm__CursorMove)(TGUIForm *a1, unsigned int a2, unsigned int a3);
+  __int64 (*field_150)();
+  void *field_158;
+  void *field_160;
+  void (__fastcall *TGUIForm__TimerActivate)(TGUIForm *a1);
+  void (__fastcall *TGUIForm__FocusTimer)(TGUIForm *a1);
+  __int64 (__fastcall *TGUIForm__SetFocusCode)(TGUIForm *a1, unsigned int a2);
+  __int64 (__fastcall *TGUIForm__WheelScroll)(TGUIForm *, int);
+  __int64 (__usercall *field_188)@<rax>(unsigned int@<edx>, __int64@<rcx>, unsigned int@<r8d>, unsigned int@<r13d>);
+  __int64 (__fastcall *field_190)(__int64);
+  void *field_198;
+  __int64 (__fastcall *TGUIForm__DrawClient)(TGUIForm *a1);
+  char (__fastcall *TGUIForm__FadeEffect)(TGUIForm *a1);
+  void (__usercall *TGUIForm__Show)(TGUIForm *@<rcx>, __int64@<rdx>, __int64@<r11>);
+  void (__fastcall *TGUIForm__Hide)(TGUIForm *a1);
+  void (__fastcall *field_1C0)(__int64);
+  __int64 field_1C8;
+  char Name[16];
+  void *CurrentVMT;
+};
+
+/* 4540 */
+struct TAKeyboardShort
+{
+  __int64 Array[2];
+};
+
+/* 4455 */
+struct TEventHandler_UNVERIFIED
+{
+  int Events;
+  char _GAP_4[4];
+  TAEventCallback *Event;
+};
+
+/* 3235 */
+struct TBaseGUISkin_vmt_struct
+{
+  __int64 field_0;
+  __int64 field_8;
+  void *DrawControlFrame;
+  void *field_18;
+  __int64 field_20;
+  void *DrawButton;
+  __int64 field_30;
+  void *field_38;
+  __int64 field_40;
+  __int64 field_48;
+  __int64 field_50;
+  __int64 field_58;
+  __int64 (__fastcall *TObject_Destroy)(TGUIForm *Form, __int64 a2);
+  TGUIForm **(__fastcall *field_68)(TGUIForm *);
+  __int64 (__fastcall *field_70)(__int64 *);
+  __int64 (*field_78)();
+  void (*nullsub_5)();
+  void (*anonymous_0)();
+  void (*anonymous_1)();
+  void (*anonymous_2)();
+  __int64 (__usercall *field_A0)@<rax>(_DWORD *@<rdx>, __int64 *@<rcx>, _DWORD *@<rdi>);
+  __int64 (__usercall *field_A8)@<rax>(unsigned __int8 *@<rdx>, __int64@<rcx>, _DWORD *@<rdi>);
+  bool (__fastcall *field_B0)(__int64, __int64);
+  __int64 (__fastcall *field_B8)(__int64);
+  void (__fastcall *field_C0)(__int64 *, __int64 *);
+  void (*anonymous_3)();
+  void (*anonymous_4)();
+  void (*GetNCHitCode)();
+  void (*anonymous_6)();
+  void (*anonymous_7)();
+  __int64 field_F0;
+  char Name[16];
+  void *field_108;
+};
+
+/* 4456 */
+struct __unaligned __declspec(align(4)) TEventCallback_UNVERIFIED
+{
+  __int64 Proc;
+  int Prio;
+};
+
+/* 4458 */
+struct TAEventCallback
+{
+  TEventCallback_UNVERIFIED Array[2];
 };
 
 /* 204 */
@@ -1860,109 +2076,6 @@ union __declspec(align(16)) __m128
   unsigned __int8 m128_u8[16];
   unsigned __int16 m128_u16[8];
   unsigned __int32 m128_u32[4];
-};
-
-/* 3235 */
-struct TBaseGUISkin_vmt_struct
-{
-  __int64 field_0;
-  __int64 field_8;
-  void *field_10;
-  void *field_18;
-  __int64 field_20;
-  __int64 field_28;
-  __int64 field_30;
-  void *field_38;
-  __int64 field_40;
-  __int64 field_48;
-  __int64 field_50;
-  __int64 field_58;
-  __int64 (__fastcall *TObject_Destroy)(TGUIForm *Form, __int64 a2);
-  TGUIForm **(__fastcall *field_68)(TGUIForm *);
-  __int64 (__fastcall *field_70)(__int64 *);
-  __int64 (*field_78)();
-  void (*nullsub_5)();
-  void (*anonymous_0)();
-  void (*anonymous_1)();
-  void (*anonymous_2)();
-  __int64 (__usercall *field_A0)@<rax>(_DWORD *@<rdx>, __int64 *@<rcx>, _DWORD *@<rdi>);
-  __int64 (__usercall *field_A8)@<rax>(unsigned __int8 *@<rdx>, __int64@<rcx>, _DWORD *@<rdi>);
-  bool (__fastcall *field_B0)(__int64, __int64);
-  __int64 (__fastcall *field_B8)(__int64);
-  void (__fastcall *field_C0)(__int64 *, __int64 *);
-  void (*anonymous_3)();
-  void (*anonymous_4)();
-  void (*anonymous_5)();
-  void (*anonymous_6)();
-  void (*anonymous_7)();
-  __int64 field_F0;
-  char Name[16];
-  void *field_108;
-};
-
-/* 3237 */
-struct TGUITask_vmt_struct
-{
-  __int64 TGUITask_vmt;
-  __int64 field_8;
-  void *field_10;
-  void *aTguitask_1;
-  __int64 field_20;
-  __int64 field_28;
-  __int64 field_30;
-  void *field_38;
-  __int64 field_40;
-  __int64 field_48;
-  __int64 field_50;
-  __int64 field_58;
-  __int64 (__fastcall *TGUITask__Destroy)(__int64 *, __int64);
-  TGUIForm **(__fastcall *field_68)(TGUIForm *);
-  __int64 (__fastcall *field_70)(__int64 *);
-  __int64 (*field_78)();
-  void (*nullsub_5)();
-  void (*anonymous_0)();
-  void (*anonymous_1)();
-  void (*anonymous_2)();
-  __int64 (__usercall *field_A0)@<rax>(_DWORD *@<rdx>, __int64 *@<rcx>, _DWORD *@<rdi>);
-  __int64 (__usercall *field_A8)@<rax>(unsigned __int8 *@<rdx>, __int64@<rcx>, _DWORD *@<rdi>);
-  bool (__fastcall *field_B0)(__int64, __int64);
-  __int64 (__fastcall *field_B8)(__int64);
-  void (__fastcall *field_C0)(__int64 *, __int64 *);
-  char (__fastcall *field_C8)(TGUIForm *, __int64);
-  __int64 (__fastcall *field_D0)(__int64);
-  void (*anonymous_3)();
-  __int64 (__fastcall *TGUIForm__QueryDragDrop)(TGUIForm *a1, unsigned int a2, unsigned int a3);
-  __int64 (__fastcall *TGUIForm__DoDragDrop)(__int64, __int64, unsigned int);
-  __int64 (__fastcall *TGUIForm__DragDropped)(TGUIForm *a1, unsigned int a2, int a3);
-  void (__fastcall *TGUIForm__AssignControls)(TGUIForm *, __int64, int, char);
-  void (*anonymous_4)();
-  __int64 (__fastcall *TGUIForm__CalcSizes)(TGUIForm *a1);
-  void (*anonymous_5)();
-  void (__fastcall *TGUIForm__SetVScroll)(TGUIForm *a1, float a2);
-  __int64 (__fastcall *field_120)(__int64, int, int, _QWORD *);
-  __int64 (__fastcall *TGUIForm__SetHitCode)(TGUIForm *a1, signed int a2);
-  char (__fastcall *field_130)(TGUIForm *a1, int a2, _DWORD *a3, _DWORD *a4);
-  __int64 (__fastcall *TGUIForm__CursorActivate)(TGUIForm *a1, __int64 a2, __int16 a3);
-  __int64 (__fastcall *TGUIForm__CursorDeactivate)(__int64, __int64, unsigned __int16);
-  __int64 (__fastcall *TGUIForm__CursorMove)(TGUIForm *a1, unsigned int a2, unsigned int a3);
-  __int64 (*field_150)();
-  void *field_158;
-  void *field_160;
-  void (__fastcall *TGUIForm__TimerActivate)(TGUIForm *a1);
-  void (__fastcall *TGUIForm__FocusTimer)(TGUIForm *a1);
-  __int64 (__fastcall *TGUIForm__SetFocusCode)(TGUIForm *a1, unsigned int a2);
-  __int64 (__fastcall *TGUIForm__WheelScroll)(TGUIForm *, int);
-  __int64 (__usercall *field_188)@<rax>(unsigned int@<edx>, __int64@<rcx>, unsigned int@<r8d>, unsigned int@<r13d>);
-  __int64 (__fastcall *field_190)(__int64);
-  void *field_198;
-  __int64 (__fastcall *TGUIForm__DrawClient)(TGUIForm *a1);
-  char (__fastcall *TGUIForm__FadeEffect)(TGUIForm *a1);
-  void (__usercall *TGUIForm__Show)(TGUIForm *@<rcx>, __int64@<rdx>, __int64@<r11>);
-  void (__fastcall *TGUIForm__Hide)(TGUIForm *a1);
-  void (__fastcall *field_1C0)(__int64);
-  __int64 field_1C8;
-  char Name[16];
-  void *CurrentVMT;
 };
 
 /* 3238 */
@@ -2333,52 +2446,6 @@ struct CP_String_32
   __int64 field_8;
   __int64 Size;
   char String[32];
-};
-
-/* 3254 */
-struct __declspec(align(8)) ControlData
-{
-  __int16 ControlType;
-  __declspec(align(4)) __int16 LocationX;
-  __int16 LocationY;
-  __int16 SizeX;
-  __int16 SizeY;
-  _BYTE gapC[2];
-  __int16 ButtonOutlineEnhance;
-  __int64 ButtonStringAddress;
-  __int8 InteractionDisabled;
-  __int8 TextAlign;
-  __int8 TextSize;
-  __int8 TextEnhance;
-  __int8 ElementEnabled;
-  __int8 DisabledElementIsHidden;
-  __int8 TextHighlighted;
-  __int64 ParentFormPointer;
-  __int64 ButtonCustomCallbackPointer;
-  __int64 DrawingHandlerPointer;
-  char field_38[48];
-};
-
-/* 3255 */
-struct ColourPicker_ControlDataArray
-{
-  ControlData field_0;
-  ControlData field_68;
-  ControlData field_D0;
-  ControlData field_138;
-  ControlData field_1A0;
-  ControlData field_208;
-  ControlData field_270;
-  ControlData field_2D8;
-  ControlData field_340;
-  ControlData field_3A8;
-  ControlData field_410;
-  ControlData field_478;
-  ControlData field_4E0;
-  ControlData field_548;
-  ControlData field_5B0;
-  ControlData field_618;
-  ControlData field_680;
 };
 
 /* 3292 */
@@ -2799,9 +2866,9 @@ struct TA3x4f
 /* 4342 */
 struct TA3xP3f
 {
-  TA3f field_0;
-  TA3f field_C;
-  TA3f field_18;
+  TA3f *field_0;
+  TA3f *field_8;
+  TA3f *field_10;
 };
 
 /* 4343 */
@@ -2914,9 +2981,6 @@ enum FormStyle_ENUM : __int16
   FormStyle_ShowCaption = 0x1,
   FormStyle_ShowCross = 0x2,
   FormStyle_ShowShadow = 0x64,
-  HasHScroll = 0x100,
-  HasVScroll = 0x200,
-  RoundScroll = 0x400,
 };
 
 /* 4354 */
@@ -2947,7 +3011,7 @@ struct __declspec(align(8)) T3DNode
   T3DNode_NodeFlag NodeFlag;
   int ObjFlag;
   TA3f LCnt;
-  int xmmFiller1;
+  int _xmmFiller1;
   TA3f WCnt;
   float RExt;
   TA3f CBExt;
@@ -3320,11 +3384,6 @@ struct TPathFinder_TODO_UNVERIFIED
   void *VMT;
 };
 
-/* 4359 */
-struct CP_String_160
-{
-};
-
 /* 4360 */
 struct __declspec(align(8)) TGeometry
 {
@@ -3332,7 +3391,7 @@ struct __declspec(align(8)) TGeometry
   int NodeFlag;
   int ObjFlag;
   TA3f LCnt;
-  int xmmFiller1;
+  int _xmmFiller1;
   TA3f WCnt;
   float RExt;
   TA3f CBExt;
@@ -3565,11 +3624,6 @@ struct TALightListItem
   TLightListItem field_0[14];
 };
 
-/* 4367 */
-struct TLightAlias
-{
-};
-
 /* 4391 */
 struct TGridEntry
 {
@@ -3586,7 +3640,7 @@ struct __declspec(align(8)) TMesh
   int NodeFlag;
   int ObjFlag;
   TA3f LCnt;
-  int xmmFiller1;
+  int _xmmFiller1;
   TA3f WCnt;
   float RExt;
   TA3f CBExt;
@@ -3780,7 +3834,7 @@ struct TVertexData
   unsigned __int32 DatFlg;
   signed __int32 VMap;
   signed __int32 Entries;
-  TAA2f *Data;
+  TAA3f *Data;
 };
 
 /* 4383 */
@@ -3817,7 +3871,7 @@ struct TAFace
 /* 4377 */
 struct __declspec(align(4)) TAFaceVRef
 {
-  TA2i Array[8];
+  TA3f Array[2];
 };
 
 /* 4378 */
@@ -3862,16 +3916,16 @@ struct TAMeshModifier
   __int64 Array[2];
 };
 
-/* 4388 */
-struct TAA2f
-{
-  TA2f Array[10];
-};
-
 /* 4382 */
 struct PAByte
 {
   TAByte *Pointer;
+};
+
+/* 4388 */
+struct TAA2f
+{
+  TA2f Array[10];
 };
 
 /* 4394 */
@@ -3881,15 +3935,14 @@ struct TMeshModifier
 };
 
 /* 4397 */
-struct T3DViewport
+struct T3DViewport_UNVERIFIED
 {
   TGUIForm_vmt_struct *FormVMT;
   int CAp0;
   int CAp1;
   float HS_Stp;
   char _GAP_14[4];
-  int StoreState;
-  char _GAP_1C[4];
+  void *StoreState;
   __int32 PosX;
   int PosY;
   __int32 Width;
@@ -3906,65 +3959,69 @@ struct T3DViewport
   int MinHeight;
   int MinWidth;
   int Style;
-  int State;
-  FormStyle_ENUM FormStyle;
+  byte State;
+  char _GAP_61[3];
+  char FormStyle;
   char SpcType;
-  char FormStyleEx;
-  char _GAP_67;
+  __unaligned __declspec(align(1)) int FormStyleEx;
+  char _GAP_67[2];
   int HitCode;
   int CaptureCode;
-  char _GAP_70[4];
   int FocusCode;
   char CaptureHit;
   char FVisible;
   char _GAP_7A[6];
-  void *pCaption;
+  void *Caption;
   char _GAP_88[8];
   signed __int32 Controls;
   char _GAP_94[4];
-  TAControlArray *pControl;
-  void *pParent;
+  TGUIControl *Control;
+  TGUIForm *Parent;
   int Children;
   char _GAP_AC[4];
-  void *pChild;
+  void *Child;
   int FormClassID;
   char _GAP_BC[4];
   void *Owner;
   int ClntQds;
   char _GAP_CC[4];
-  void *pClntQd;
+  void *ClntQd;
   int HS_Pos;
   int VS_Pos;
   float VS_Stp;
-  char _GAP_E4[4];
+  int Hgt;
   void *BkCol0;
   void *BkCol1;
   char _GAP_F8[8];
   __int32 Glyph;
   char _GAP_104[4];
-  void *pOnClose;
-  void *pOnScroll;
+  void *OnClose;
+  void *OnScroll;
   char OwnsControls;
   char FreeOnClose;
   char Closing;
   char WantsFree;
   char AniState;
   char _GAP_11D[3];
-  __int64 AniTime;
-  void *AniType;
-  void *Task;
+  int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  __int64 field_130;
   int ModalResult;
-  char _GAP_13C[28];
+  char _GAP_13C[12];
+  int VS_TPos;
+  int VS_TLen;
+  int HS_TPos;
+  int HS_TLen;
   signed __int32 CursorActions;
   char _GAP_15C[4];
-  TCursorAction *CursorAction;
+  TACursorAction *CursorAction;
   TCursorAction *CurCursorAction;
   float Stereo0fs;
   char _GAP_174[4];
-  __int64 OnWheelScroll;
-  __int16 _Unk_180;
-  char _GAP_182[6];
-  TNavCameraControl *NavCameraControl;
+  void *OnWheelScroll;
+  void *OnWheelScrollCallee;
+  TNavCameraControl *Intrfc;
   void *CurActUpd;
   unsigned __int32 ViewportID;
   TA2i ViewportSize;
@@ -3976,7 +4033,7 @@ struct T3DViewport
   unsigned __int32 ValidateID;
   unsigned __int32 FrameCounter;
   int LastFPSTime;
-  __int64 FPSText;
+  char *__shifted(CP_StrGen,0x18) FPSText;
   __int64 LastFrameTime;
   __int64 ftimedelta;
   TScene_TODO *TScene;
@@ -3984,7 +4041,40 @@ struct T3DViewport
   void *CamControl;
   void *OnDestroy;
   TNavCameraControl *ChildNav;
-  void *OnDrawOverlays;
+  TEventHandler_UNVERIFIED OnDrawOverlays;
+  void *OnSetHitCode;
+  void *OnSetHitCodeCallee;
+  void *OnCursorOver;
+  void *OnCursorOverCallee;
+  void *OnKeyDown;
+  void *OnKeyDownCallee;
+  void *OnRedraw;
+  void *OnRedrawCallee;
+  void *OnDragDropped;
+  void *OnDragDroppedCallee;
+  signed int AnaglyphMode;
+  char _GAP_27C[4];
+  unsigned int StillMSMode;
+  int StillMSLevel;
+  signed int StillMSPass;
+  bool DoRender;
+  bool UseBuffering;
+  bool ShowFrameRate;
+  bool ForceStillMS;
+  bool HaltRender;
+  char _GAP_291[3];
+  unsigned int CursorGraphic;
+  int DragType;
+  bool ViewInitialised;
+  bool FirstFrame;
+  bool ShowVersion;
+  bool TransparentBackground;
+  void *OnQueryDrop;
+  TGameEditControls_TODO *OnQueryDropCallee;
+  void *OnDragDrop;
+  TGameEditControls_TODO *OnDragDropCallee;
+  void *OnGetHitCode;
+  void *OnGetHitCodeCallee;
 };
 
 /* 4398 */
@@ -3993,6 +4083,13 @@ struct TCursorAction
   unsigned __int32 Triggers;
   char _GAP_4[4];
   void *Action;
+  TGUIForm *Page;
+};
+
+/* 4399 */
+struct TACursorAction
+{
+  TCursorAction Array[2];
 };
 
 /* 4444 */
@@ -4020,7 +4117,7 @@ struct __unaligned __declspec(align(2)) TNavCameraControl
   char _GAP_81[15];
   __int64 POnValidateScene;
   void *POnDestroyView;
-  T3DViewport *ParentPort;
+  T3DViewport_UNVERIFIED *ParentPort;
   float pYaw;
   float tYaw;
   float stYaw;
@@ -4036,7 +4133,7 @@ struct __unaligned __declspec(align(2)) TNavCameraControl
   TA3f LsRot;
   TA3f CrOfs;
   TA3f LsOfs;
-  T3DViewport *Form;
+  T3DViewport_UNVERIFIED *Form;
   T3DView *View;
   float FlyAccl;
   float BFlyAccl;
@@ -4087,19 +4184,12 @@ struct __unaligned __declspec(align(2)) TNavCameraControl
   char _GAP_21C[2];
 };
 
-/* 4455 */
-struct __unaligned __declspec(align(4)) TEventHandler_UNVERIFIED
-{
-  int Events;
-  TAEventCallback *Event;
-};
-
 /* 4447 */
 struct __unaligned __declspec(align(1)) T3DView
 {
   void *VMT;
   void *PUpdateViewer;
-  void *_UNK_10;
+  void *PUpdateViewerCallee;
   TA2i ViewSize;
   float ViewAspect;
   TRect_UNVERIFIED *ViewRgn;
@@ -4129,15 +4219,15 @@ struct __unaligned __declspec(align(1)) T3DView
   float BloomStr;
   float BloomRds;
   float GammaBoost;
-  _BYTE gap184[4];
+  float _UNK_184;
   float SharpenLevel;
   _BYTE gap18C[52];
   signed int ViewVolIdx;
   unsigned int VisMask;
   _BYTE gap1C8[20];
   float _UNK_1DC;
-  TEventHandler_UNVERIFIED OnRenderComplete;
-  _BYTE gap1EC[4];
+  _BYTE gap1E0[12];
+  char _GAP_1EC[4];
   signed int FBOUpscale;
   signed int SSLevel;
   float SharpenAmt;
@@ -4161,7 +4251,7 @@ struct __declspec(align(8)) TCamera
   int NodeFlag;
   int ObjFlag;
   TA3f LCnt;
-  int xmmFiller1;
+  int _xmmFiller1;
   TA3f WCnt;
   float RExt;
   TA3f CBExt;
@@ -4215,8 +4305,8 @@ struct __declspec(align(8)) TCamera
 struct __unaligned __declspec(align(4)) TScene_TODO
 {
   __int64 VMT;
-  _BYTE gap8[4];
   unsigned int NodeFlag;
+  unsigned int ObjFlag;
   _BYTE gap10[456];
   signed int OwnLights;
   _BYTE gap1DC[76];
@@ -4257,8 +4347,34 @@ struct __unaligned __declspec(align(4)) TScene_TODO
   TSceneEnvParams_UNVERIFIED *EnvParams;
   _BYTE gap1DD8[56];
   float ShadowDepthBias;
-  _BYTE gap1E14[76];
+  _BYTE gap1E14[52];
+  void *AddAmbientLight;
+  TScene_TODO *_UNK_1E50;
+  _BYTE gap1E58[8];
   float DayLight;
+};
+
+/* 4400 */
+struct __unaligned __declspec(align(4)) TGameEditControls_TODO
+{
+  void *VMT;
+  int CtrlState;
+  char _GAP_C[4];
+  TMesh *InputSel;
+  T3DViewport_UNVERIFIED *View;
+  unsigned __int32 UseItemUID;
+  char _GAP_24[4];
+  TGUIForm *UseItemSrc;
+  T3DNode *UseItemNod;
+  int UseItemHnd;
+  TA4x3f MoveStartPts;
+  float IntHgt;
+  float IntDst;
+  TA3f IntPos;
+  TA3f IntPos2;
+  TA4x3f IntPln;
+  unsigned __int32 UpdateItemMode;
+  unsigned __int32 UpdateItemOUID;
 };
 
 /* 4454 */
@@ -4313,23 +4429,11 @@ struct __unaligned __declspec(align(1)) TPostProcessor_TODO
   char ExpEffect;
 };
 
-/* 4456 */
-struct __unaligned __declspec(align(4)) TEventCallback_UNVERIFIED
-{
-  __int64 Proc;
-  int Prio;
-};
-
-/* 4458 */
-struct TAEventCallback
-{
-  TEventCallback_UNVERIFIED Array[2];
-};
-
 /* 4469 */
 struct TAConvexVol
 {
-  __int64 size;
+  int size;
+  char _GAP_4[4];
   TConvexVol_TODO_UNVERIFIED Array[2];
 };
 
@@ -4349,7 +4453,7 @@ struct __unaligned __declspec(align(4)) TScenePlugin_UNVERIFIED
 /* 4465 */
 struct TALightSource
 {
-  __int64 Array[2];
+  __int64 Array[4];
 };
 
 /* 4461 */
@@ -4567,7 +4671,7 @@ struct __declspec(align(8)) TLightSource
   int NodeFlag;
   int ObjFlag;
   TA3f LCnt;
-  int xmmFiller1;
+  int _xmmFiller1;
   TA3f WCnt;
   float RExt;
   TA3f CBExt;
@@ -4719,45 +4823,15 @@ struct __unaligned __declspec(align(1)) TAbstractShadowMap_UNVERIFIED
   char FreezeVol;
 };
 
-/* 4399 */
-struct TACursorAction
-{
-  char Array[2];
-};
-
-/* 4400 */
-struct __unaligned __declspec(align(4)) TGameEditControls_TODO
-{
-  void *VMT;
-  int CtrlState;
-  char _GAP_C[4];
-  TMesh *InputSel;
-  T3DViewport *View;
-  unsigned __int32 UseItemUID;
-  char _GAP_24[4];
-  TGUIForm *UseItemSrc;
-  T3DNode *UseItemNod;
-  int UseItemHnd;
-  TA4x3f MoveStartPts;
-  float IntHgt;
-  float IntDst;
-  TA3f IntPos;
-  TA3f IntPos2;
-  TA4x3f IntPln;
-  unsigned __int32 UpdateItemMode;
-  unsigned __int32 UpdateItemOUID;
-};
-
 /* 4402 */
-struct TGUIItemContainer_TODO_UNVERIFIED
+struct TGUIItemContainer_FIX_END_UNVERIFIED
 {
   TGUIForm_vmt_struct *FormVMT;
   int CAp0;
   int CAp1;
   float HS_Stp;
   char _GAP_14[4];
-  int StoreState;
-  char _GAP_1C[4];
+  void *StoreState;
   __int32 PosX;
   int PosY;
   __int32 Width;
@@ -4774,7 +4848,8 @@ struct TGUIItemContainer_TODO_UNVERIFIED
   int MinHeight;
   int MinWidth;
   int Style;
-  int State;
+  byte State;
+  char _GAP_61[3];
   char FormStyle;
   char SpcType;
   char FormStyleEx;
@@ -4786,21 +4861,21 @@ struct TGUIItemContainer_TODO_UNVERIFIED
   char CaptureHit;
   char FVisible;
   char _GAP_7A[6];
-  void *pCaption;
+  void *Caption;
   char _GAP_88[8];
   signed __int32 Controls;
   char _GAP_94[4];
-  TAControlArray *pControl;
-  void *pParent;
+  TAControlArray *Control;
+  TGUIForm *Parent;
   int Children;
   char _GAP_AC[4];
-  void *pChild;
+  void *Child;
   int FormClassID;
   char _GAP_BC[4];
   void *Owner;
   int ClntQds;
   char _GAP_CC[4];
-  void *pClntQd;
+  void *ClntQd;
   int HS_Pos;
   int VS_Pos;
   float VS_Stp;
@@ -4810,17 +4885,17 @@ struct TGUIItemContainer_TODO_UNVERIFIED
   char _GAP_F8[8];
   __int32 Glyph;
   char _GAP_104[4];
-  void *pOnClose;
-  void *pOnScroll;
+  void *OnClose;
+  void *OnScroll;
   char OwnsControls;
   char FreeOnClose;
   char Closing;
   char WantsFree;
   char AniState;
   char _GAP_11D[3];
-  __int64 AniTime;
-  void *AniType;
-  void *Task;
+  _BYTE gap120[8];
+  TGUITask_FIX_END *Task;
+  _BYTE gap130[8];
   int ModalResult;
   _BYTE gap13C[28];
   signed __int32 Items;
@@ -4831,7 +4906,7 @@ struct TGUIItemContainer_TODO_UNVERIFIED
   TGUIForm *LinkedView_WRONG_7;
   _BYTE gap188[8];
   void *OnDragDropped;
-  TInventory_TODO_UNVERIFIED *TargetInv;
+  __int64 Parent7;
   _BYTE gap1A0[16];
   unsigned int StateFilterQ;
   unsigned int StateFilterR;
@@ -4841,8 +4916,7 @@ struct TGUIItemContainer_TODO_UNVERIFIED
   void *OnDropNewItem;
   __int64 OnDropParent;
   void *AllowItemGrab;
-  TInventory_TODO_UNVERIFIED *_UNK_Inv;
-  _BYTE gap1F8[4];
+  _BYTE gap1F0[12];
   signed int MaxSize;
   signed int Capacity;
   signed int TotalSize;
@@ -4866,89 +4940,12 @@ struct TAContainerItem
   TContainerItem Array[2];
 };
 
-/* 4530 */
-struct TInventory_TODO_UNVERIFIED
-{
-  TGUIForm_vmt_struct *FormVMT;
-  int CAp0;
-  int CAp1;
-  float HS_Stp;
-  char _GAP_14[4];
-  int StoreState;
-  char _GAP_1C[4];
-  __int32 PosX;
-  int PosY;
-  __int32 Width;
-  __int32 Height;
-  int Border;
-  int BorderEx;
-  int BorderIn;
-  int ClientBtm;
-  int ClientTop;
-  int ClientRgt;
-  int ClientSpcX;
-  int ClientSpcY;
-  int BaseBorder;
-  int MinHeight;
-  int MinWidth;
-  int Style;
-  int State;
-  FormStyle_ENUM FormStyle;
-  char SpcType;
-  char FormStyleEx;
-  char _GAP_67;
-  int HitCode;
-  int CaptureCode;
-  int FocusCode;
-  char _GAP_74[4];
-  char CaptureHit;
-  char FVisible;
-  char _GAP_7A[6];
-  void *pCaption;
-  char _GAP_88[8];
-  signed __int32 Controls;
-  char _GAP_94[4];
-  TAControlArray *pControl;
-  void *pParent;
-  int Children;
-  char _GAP_AC[4];
-  void *pChild;
-  int FormClassID;
-  char _GAP_BC[4];
-  void *Owner;
-  int ClntQds;
-  char _GAP_CC[4];
-  void *pClntQd;
-  int HS_Pos;
-  int VS_Pos;
-  float VS_Stp;
-  char _GAP_E4[4];
-  void *BkCol0;
-  void *BkCol1;
-  char _GAP_F8[8];
-  __int32 Glyph;
-  char _GAP_104[4];
-  void *pOnClose;
-  void *pOnScroll;
-  char OwnsControls;
-  char FreeOnClose;
-  char Closing;
-  char WantsFree;
-  char AniState;
-  char _GAP_11D[3];
-  __int64 AniTime;
-  void *AniType;
-  void *Task;
-  int ModalResult;
-  char padding[28];
-};
-
 /* 4405 */
 struct TSGItemContainer
 {
   signed __int32 CItems;
   char _GAP_4[4];
-  TSGContainerItem *CItem;
+  TASGContainerItm *CItem;
 };
 
 /* 4406 */
@@ -4959,9 +4956,10 @@ struct TSGContainerItem
   TA2f ItmPos;
 };
 
-/* 4410 */
-struct CP_String_1592
+/* 4569 */
+struct TASGContainerItm
 {
+  TSGContainerItem array[2];
 };
 
 /* 4411 */
@@ -6414,6 +6412,20 @@ struct TAA4f
   float Array[4];
 };
 
+/* 4424 */
+struct __unaligned __declspec(align(4)) TDragData_UNVERIFIED
+{
+  unsigned __int32 DragID;
+  char _GAP_4[4];
+  TGUIForm *Source;
+  TGUIForm *Dest;
+  char _GAP_18[4];
+  int Graphic;
+  void *Data;
+  void *DrawGraphic;
+  int Flags;
+};
+
 /* 4423 */
 struct __unaligned __declspec(align(4)) TCursor_TODO
 {
@@ -6437,11 +6449,7 @@ struct __unaligned __declspec(align(4)) TCursor_TODO
   unsigned __int32 FGraphic;
   void *OnChange;
   char _Unk_68[8];
-  _BYTE gap70[28];
-  char _GAP_8C[4];
-  void *DragDataEx;
-  void *_UNK_98;
-  int _UNK_A0;
+  TDragData_UNVERIFIED DragData;
   _BYTE gapA4[4];
   TGUIForm *DragForm;
   unsigned int DragCode;
@@ -6449,28 +6457,12 @@ struct __unaligned __declspec(align(4)) TCursor_TODO
   TGUIForm *DropForm;
   TGUIForm *DropTo;
   unsigned int DropCode;
-  _BYTE gapCC[20];
+  _BYTE gapCC[4];
+  void *OnDragEnded;
+  __int64 OnDragEnded2;
   bool IgnoreRelease;
   __declspec(align(2)) bool Invalidated;
   bool StateHandled;
-};
-
-/* 4424 */
-struct TDragData
-{
-  unsigned __int32 DragID;
-  char _GAP_4[4];
-  TGUIForm *Source;
-  TGUIForm *Dest;
-  int Graphic;
-  unsigned int Flags;
-  TAGUIForm *_UNK_20;
-};
-
-/* 4531 */
-struct TAGUIForm
-{
-  __int64 Array[2];
 };
 
 /* 4426 */
@@ -6562,7 +6554,7 @@ struct __declspec(align(8)) TVoxelLight
   int NodeFlag;
   int ObjFlag;
   TA3f LCnt;
-  int xmmFiller1;
+  int _xmmFiller1;
   TA3f WCnt;
   float RExt;
   TA3f CBExt;
@@ -6635,8 +6627,77 @@ union __declspec(align(16)) __m128f
 struct TSector_TODO
 {
   __int64 VMT;
-  _BYTE gap8[7128];
+  unsigned int NodeFlag;
+  unsigned int ObjFlag;
+  _BYTE gap10[208];
+  unsigned int VisBits;
+  _BYTE gapE4[76];
+  TSector_TODO *Sector;
+  _BYTE gap138[144];
+  signed int Geometries;
+  _BYTE gap1CC[12];
+  signed int OwnLights;
+  char _GAP_1DC[4];
+  TALightSource *OwnLight;
+  signed int NewGeometries;
+  signed int NewLights;
+  signed int Lights;
+  TALight *Light;
+  _BYTE gap200[16];
+  TAMaterialRefList *MatRef;
+  _BYTE gap218[8];
+  TScene_TODO *Scene;
+  signed int ViewVols;
+  TAConvexVol *ViewVol;
+  _BYTE gap238[56];
+  signed int ActPortals;
+  _BYTE gap274[12];
+  signed int VoxLgts;
+  TAVoxelLight *VoxLgt;
+  _BYTE gap290[120];
+  unsigned int VisMode;
+  _BYTE gap30C[20];
+  void *OnAppendSectNodes;
+  TASimSector *SectNodesToAppend;
+  _BYTE gap330[16];
+  void *LineOfSight;
+  TGridEnvManager_TODO_UNVERIFIED *UNK_GridEnvManager1;
+  void *NghbrVis;
+  TGridEnvManager_TODO_UNVERIFIED *UNK_GridEnvManager2;
+  _BYTE gap360[48];
+  bool UseScissor;
+  _BYTE gap391[6223];
   TSceneEnvironment_TODO_UNVERIFIED *Env;
+};
+
+/* 4587 */
+struct TALight
+{
+  __int64 array[2];
+};
+
+/* 4536 */
+struct TAMaterialRefList
+{
+  __int64 Array[2];
+};
+
+/* 4533 */
+struct TAVoxelLight
+{
+  __int64 Array[2];
+};
+
+/* 4534 */
+struct TASimSector
+{
+  __int64 Array[2];
+};
+
+/* 4532 */
+struct TGridEnvManager_TODO_UNVERIFIED
+{
+  void *VMT;
 };
 
 /* 4459 */
@@ -6731,7 +6792,7 @@ struct __unaligned __declspec(align(1)) TPlayerControl_TODO_UNVERIFIED
   _BYTE gap8[64];
   TNavCameraControl *NavCtrl;
   _BYTE gap50[16];
-  T3DViewport *View;
+  T3DViewport_UNVERIFIED *View;
   _BYTE gap68[72];
   bool SpectateMode;
 };
@@ -6747,15 +6808,6 @@ struct __unaligned __declspec(align(4)) TDragData_TODO_UNVERIFIED
   void *Data;
   void *DrawGraphic;
   unsigned int flags;
-};
-
-/* 4480 */
-struct __unaligned __declspec(align(1)) CP_StrGen
-{
-  __int64 CodePage;
-  __int64 field_8;
-  __int64 Size;
-  char String;
 };
 
 /* 4482 */
@@ -6833,7 +6885,7 @@ struct TAWorkQueueItem
 /* 4489 */
 struct _ItemDragDataEx
 {
-  TGUIItemContainer_TODO_UNVERIFIED *Form;
+  TGUIItemContainer_FIX_END_UNVERIFIED *Form;
   __int64 _UNK_8;
   int IHandle;
   int IState;
@@ -6853,7 +6905,8 @@ struct __unaligned __declspec(align(1)) TRFCReader_TODO_UNVERIFIED
   TAByte *Memory;
   unsigned int Size;
   unsigned int MemSize;
-  _BYTE gap18[8];
+  unsigned int _UNK_18;
+  _BYTE gap1C[4];
   TAByte *MemPos;
   _BYTE gap28[8];
   T3DNode *ImpNode;
@@ -6907,17 +6960,21 @@ struct __unaligned __declspec(align(1)) TItemGUIManager_TODO_UNVERIFIED
   char field_C[4];
   TAContainerItem *Item;
   TIconManager_TODO_UNVERIFIED *ItemIcons;
-  void *ObjDB;
+  TObjectDB_TODO_UNVERIFIED *ObjDB;
   TItemRenderer_TODO_UNVERIFIED *ItemRender;
   TRFCReader_TODO_UNVERIFIED *RFCReader;
-  _BYTE gap38[24];
+  __int64 ModelMem;
+  int MemSize;
+  int field_44;
+  int field_48;
+  _BYTE gap4C[4];
   bool SkipTexUpdate;
 };
 
 /* 4517 */
 struct __unaligned __declspec(align(4)) TIconManager_TODO_UNVERIFIED
 {
-  __int64 VMT;
+  void *VMT;
   bool TextureInvalid;
   _BYTE gap9[7];
   TRFImage_TODO_UNCORRECTED *Img;
@@ -6933,32 +6990,8 @@ struct __unaligned __declspec(align(4)) TIconManager_TODO_UNVERIFIED
   signed int IconSize;
   unsigned __int32 PixelFormat;
   unsigned int TexFilter;
-  _BYTE gap58[8];
+  void *Owner;
   unsigned int BlendFunc;
-};
-
-/* 4518 */
-struct TItemRenderer_TODO_UNVERIFIED
-{
-  __int64 VMT;
-  TScene_TODO *Scene;
-  T3DView *View;
-  TRFImage_TODO_UNCORRECTED *RImg;
-  TRFImage_TODO_UNCORRECTED *SImg;
-  TMemoryBlock_TODO_UNVERIFIED *fileMem;
-  __declspec(align(32)) TA2f ItmExt;
-  __declspec(align(16)) TFrameBuffer_TODO *FrameBuf;
-  unsigned int DepthRB;
-  unsigned int ColorRB;
-};
-
-/* 4519 */
-struct __unaligned __declspec(align(4)) TMemoryBlock_TODO_UNVERIFIED
-{
-  void *Memory;
-  unsigned int Size;
-  unsigned int MemSize;
-  unsigned int Flags;
 };
 
 /* 4514 */
@@ -6974,6 +7007,21 @@ struct TObjectDB_TODO_UNVERIFIED
   unsigned int ThreadLock;
 };
 
+/* 4518 */
+struct TItemRenderer_TODO_UNVERIFIED
+{
+  __int64 VMT;
+  TScene_TODO *Scene;
+  T3DView *View;
+  TRFImage_TODO_UNCORRECTED *RImg;
+  TRFImage_TODO_UNCORRECTED *SImg;
+  TMemoryBlock_UNVERIFIED *fileMem;
+  __declspec(align(32)) TA2f ItmExt;
+  __declspec(align(16)) TFrameBuffer_TODO *FrameBuf;
+  unsigned int DepthRB;
+  unsigned int ColorRB;
+};
+
 /* 4515 */
 struct TObjDBEntry_UNVERIFIED
 {
@@ -6987,6 +7035,16 @@ struct TObjDBEntry_UNVERIFIED
 struct TAObjDBEntry
 {
   TObjDBEntry_UNVERIFIED Array[2];
+};
+
+/* 4519 */
+struct TMemoryBlock_UNVERIFIED
+{
+  void *Memory;
+  unsigned int Size;
+  unsigned int MemSize;
+  unsigned int Flags;
+  int _UNK_14;
 };
 
 /* 4521 */
@@ -7087,5 +7145,2197 @@ struct __unaligned __declspec(align(4)) __TObjectDB_EntryData_
   int Size;
   int Size2_7;
   int Flag;
+};
+
+/* 4535 */
+struct TMaterialRefList_UNVERIFIED
+{
+  signed int Items;
+  char _GAP_4[4];
+  TAMatRefListItem *Item;
+};
+
+/* 4537 */
+struct __unaligned __declspec(align(4)) TMatRefListItem_UNVERIFIED
+{
+  TGeometry *Obj;
+  signed int SO;
+};
+
+/* 4538 */
+struct TAMatRefListItem
+{
+  TMatRefListItem_UNVERIFIED Array[2];
+};
+
+/* 4541 */
+struct __unaligned __declspec(align(4)) TKeyboardShort_UNVERIFIED
+{
+  char Key;
+  char SState;
+  char _GAP_2[2];
+  void *Action;
+};
+
+/* 4543 */
+struct TTextBox
+{
+  TTextBox_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  signed int PosX;
+  signed int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  __unaligned __declspec(align(1)) int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed __int32 Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  void *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  int BkCol0;
+  char _GAP_EC[4];
+  void *BkCol1;
+  char _GAP_F8[8];
+  __int32 Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  int VS_TPos;
+  float VS_TLen;
+  float HS_TPos;
+  float HS_TLen;
+  char *Text;
+  TA2i Sel;
+  signed int NumLines;
+  char _GAP_16C[4];
+  RFFont_UNVERIFIED *TxtFont;
+  int FrameTimer;
+  signed int Margin;
+  int LineSpacing;
+  int MarginToScroll;
+  int VS_Pos2;
+  char _GAP_18C[4];
+  bool Format2;
+  bool NoWrap;
+  bool Selecting;
+  char _GAP_193[5];
+  TTextRenderer_UNVERIFIED *TextRender;
+  void *OnSizeChange;
+  void *OnSizeChangeCallee;
+  void *OnSetFocus;
+  void *OnSetFocusCallee;
+  void *OnChange;
+  void *OnChangeCallee;
+};
+
+/* 4580 */
+struct TTextBox_vmt_struct
+{
+  __int64 TTextBox_vmt;
+  __int64 field_8;
+  void *field_10;
+  void *aTtextbox;
+  __int64 field_20;
+  __int64 field_28;
+  __int64 field_30;
+  void *field_38;
+  void *field_40;
+  __int64 field_48;
+  __int64 field_50;
+  __int64 field_58;
+  void (__fastcall *TGUIForm__Destroy)(TGUIForm *Form, __int64 FlagUseCallbacks);
+  TGUIForm **(__fastcall *TObject__NewInstance)(TGUIForm *);
+  __int64 (__fastcall *TObject__FreeInstance)(__int64 *);
+  __int64 (*TObject__SafeCallException)();
+  void (*nullsub_5)();
+  void (*anonymous_0)();
+  void (*anonymous_1)();
+  void (*anonymous_2)();
+  __int64 (__usercall *field_A0)@<rax>(_DWORD *@<rdx>, __int64 *@<rcx>, _DWORD *@<rdi>);
+  __int64 (__usercall *field_A8)@<rax>(unsigned __int8 *@<rdx>, _DWORD *@<rdi>, __int64@<rcx>);
+  bool (__fastcall *field_B0)(__int64, __int64);
+  __int64 (__fastcall *field_B8)(__int64);
+  void (__fastcall *field_C0)(__int64 *, __int64 *);
+  char (__fastcall *TGUIForm__Close)(TGUIForm *Form, TGUIControl *sender);
+  __int64 (__fastcall *field_D0)(__int64);
+  __int64 (__fastcall *field_D8)(__int64);
+  __int64 (__fastcall *TGUIForm__QueryDragDrop)(TGUIForm *this, unsigned int dragID, unsigned int hit);
+  __int64 (__fastcall *TGUIForm__DoDragDrop)(TGUIForm *this, TDragData_UNVERIFIED *dragData, unsigned int hit);
+  __int64 (__fastcall *TGUIForm__DragDropped)(TGUIForm *this, TDragData_UNVERIFIED *dragData, int hit);
+  void (__fastcall *TGUIForm__AssignControls)(TGUIForm *a1, TAControlArray *a2, signed __int32 a3, char a4);
+  __int64 (__fastcall *field_100)(__int64);
+  __int64 (__fastcall *TTextBox__CalcSizes)(TTextBox *this);
+  void (__fastcall *TTextBox__OnScaleUI)(TTextBox *this, signed int pGS);
+  void (__fastcall *TTextBox__SetVScroll_)(TTextBox *this, float delta);
+  __int64 (__fastcall *TGUIForm__GetHitCode)(TGUIForm *this, int x, int y, _QWORD *graphic, TGUIForm *page);
+  __int64 (__fastcall *TGUIForm__SetHitCode)(TGUIForm *this, signed int code);
+  char (__fastcall *field_130)(TGUIForm *this, int a2, _DWORD *x, _DWORD *y);
+  __int64 (__fastcall *TTextBox__CursorActivate)(TTextBox *this, TCursor_TODO *cursor, unsigned __int16 astate);
+  __int64 (__fastcall *TTextBox__CursorDeactivate)(TTextBox *this, TCursor_TODO *cursor, unsigned __int16 astate);
+  __int64 (__fastcall *TTextBox__CursorMove)(TTextBox *this, int x, int y);
+  __int64 (*field_150)();
+  __int64 (*field_158)();
+  __int64 (*TGUIForm__CursorHover)();
+  void (__fastcall *TGUIForm__TimerActivate)(TGUIForm *this);
+  void (__fastcall *TTextBox__FocusTimer)(TTextBox *this);
+  __int64 (__fastcall *TTextBox__SetFocusCode)(TTextBox *this, signed int code);
+  void (__fastcall *TGUIForm__WheelScroll)(TGUIForm *this, int delta);
+  void (__fastcall *TTextBox__MsgKeyDown)(TTextBox *this, unsigned int a2, char a3);
+  __int64 (__fastcall *TGUIForm__Draw)(TGUIForm *a1);
+  char (*TGUIForm__DrawPage)();
+  double (__fastcall *TTextBox__DrawClient)(TTextBox *this);
+  char (__fastcall *TGUIForm__FadeEffect)(TGUIForm *this);
+  void (__fastcall *TGUIForm__Show)(TGUIForm *this, __int64 a2);
+  void (__fastcall *TGUIForm__Hide)(TGUIForm *a1);
+  __int64 field_1C0;
+  char anonymous_3[16];
+};
+
+/* 4544 */
+struct __unaligned __declspec(align(4)) RFFont_UNVERIFIED
+{
+  float u_size;
+  float v_size;
+  signed int x_size;
+  signed int y_size;
+  signed int CapHgt;
+  signed int Italic_Shift;
+  signed int Kerning;
+  signed int Leading;
+  signed int X_Ofs;
+  signed int Y_Ofs;
+  signed int Spacing;
+  char _GAP_2C[4];
+  TTexture_TODO_UNVERIFIED *Texture;
+  unsigned int TexSrc_SrcType;
+  unsigned int TexSrc_SrcHndl;
+  char TexSrc_Name[16];
+  char CharSpc[512];
+  float CurScale;
+};
+
+/* 4546 */
+struct __unaligned __declspec(align(4)) TTextRenderer_UNVERIFIED
+{
+  __int64 VMT;
+  signed int x;
+  signed int y;
+  signed int Wdt;
+  signed int Hgt;
+  int LWdt;
+  signed int Left;
+  signed int algn;
+  char _GAP_24[4];
+  RFFont_UNVERIFIED *Font;
+  signed int Leading;
+  bool FFormat;
+  char _GAP_35[3];
+  float IShft;
+};
+
+/* 4545 */
+struct __unaligned __declspec(align(1)) TDataSource_UNVERIFIED
+{
+  unsigned int SrcType;
+  unsigned int SrcHndl;
+  char Name[8];
+  unsigned int Size;
+  char DatPtr;
+};
+
+/* 4548 */
+struct TGUITableColumn_UNVERIFIED
+{
+  char *__shifted(CP_StrGen,0x18) Title;
+  int Width;
+  unsigned int _UNK_C;
+  void *Draw;
+  void *GetString;
+};
+
+/* 4550 */
+struct TGUITableView_UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  int PosX;
+  int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  __unaligned __declspec(align(1)) int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  void *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  signed int Columns;
+  char _GAP_15C[4];
+  TAGUITableColumn *Column;
+  signed int Items;
+  char _GAP_16C[4];
+  TAGUITableItem *Item;
+  signed int ItemHgt;
+  unsigned int ItemType;
+  signed int Highlighted;
+  int _UNK_184;
+  void *OnSelectItem;
+  void *OnDropItem;
+  void *OnOpenItem;
+  void *OnQueryDrop;
+};
+
+/* 4553 */
+struct TAGUITableColumn
+{
+  TGUITableColumn_UNVERIFIED Array[8];
+};
+
+/* 4551 */
+struct TGUITableItem
+{
+  unsigned int Flag;
+  char _GAP_4[4];
+  TGUITableItemField_UNVERIFIED *item;
+};
+
+/* 4589 */
+struct TAGUITableItem
+{
+  TGUITableItem array[2];
+};
+
+/* 4552 */
+struct TGUITableItemField_UNVERIFIED
+{
+  void *data[2];
+};
+
+/* 4558 */
+struct TTextInfo_UNVERIFIED
+{
+  TA2b Sel;
+  char Vis;
+  char Fst;
+};
+
+/* 4554 */
+struct __unaligned __declspec(align(1)) TGUITreeView_UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  int PosX;
+  int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *pCaption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *pControl;
+  TGUIForm *pParent;
+  int Children;
+  char _GAP_AC[4];
+  void *pChild;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *pClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *pOnClose;
+  void *pOnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  signed int Nodes;
+  int NodesA;
+  TTreeNode_UNVERIFIED *Node;
+  signed int Roots;
+  char _GAP_16C[4];
+  TATreeNode *Root;
+  int IconSize;
+  int ItemHgt;
+  int ItemsExpanded;
+  char _GAP_184[4];
+  TATreeNode *Selected;
+  signed int TreeSize;
+  char _GAP_194[4];
+  TIconManager_TODO_UNVERIFIED *IconMngr;
+  __int64 OnCursorActivate;
+  TGUIControl *CallerControl;
+  void *OnSelect;
+  __int64 CallerControlParent;
+  void *OnExpandNode;
+  void *OnRemoveItem;
+  void *OnRenameItem;
+  TTextInfo_UNVERIFIED TextEdtInfo;
+  char _GAP_1DC[4];
+  CP_StrGen *OrgName;
+  bool Renaming;
+};
+
+/* 4555 */
+struct TTreeNode_UNVERIFIED
+{
+  TListItem_UNVERIFIED *Itm;
+  char _GAP_8[16];
+  signed int Children;
+  char _GAP_C[4];
+  TTreeNode_UNVERIFIED *Child;
+  TTreeNode_UNVERIFIED *Parent;
+  char _GAP_30[4];
+  int flags;
+};
+
+/* 4557 */
+struct TATreeNode
+{
+  __int64 Array[2];
+};
+
+/* 4556 */
+struct __unaligned __declspec(align(4)) TListItem_UNVERIFIED
+{
+  CP_StrGen *Name;
+  int Icon;
+  int ItmFlg;
+  int HObject;
+  void *PObject;
+};
+
+/* 4559 */
+enum SpcType_ENUM
+{
+  HasHScroll = 0x1,
+  HasVScroll = 0x2,
+  RoundScroll = 0x4,
+};
+
+/* 4560 */
+struct TDropDownList
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  int PosX;
+  int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  __unaligned __declspec(align(1)) int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *pControl;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  void *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  signed int Items;
+  char _GAP_15C[4];
+  TAString *Item;
+  signed int ItemIdx;
+  char _GAP_16C[4];
+  TGUIControl *CallerControl;
+  bool OwnsList;
+  char _GAP_179[7];
+  void *OnSelectItem;
+};
+
+/* 4565 */
+struct TAString
+{
+  __int64 array[2];
+};
+
+/* 4562 */
+struct TGUIColArray_UNVERIFIED
+{
+  char el[48];
+};
+
+/* 4561 */
+struct __unaligned __declspec(align(2)) TGUIDrawSkin_UNVERIFIED
+{
+  TBaseGUISkin_vmt_struct *VMT;
+  signed int FrmWdtO;
+  signed int FrmWdtI;
+  signed int TtlHgt;
+  char _GAP_14[8];
+  signed int BFrmWdtO;
+  signed int BFrmWdtI;
+  signed int BTtlHgt;
+  signed int BScrlWdt;
+  unsigned int CursorGraphic;
+  unsigned int Flags;
+  char _GAP_34[8];
+  TGUIColArray_UNVERIFIED FormCol;
+  TGUIColArray_UNVERIFIED CtrlCol;
+  TGUIColArray_UNVERIFIED CtrlBkg;
+  TGUIColArray_UNVERIFIED GlphCol;
+  TGUIColArray_UNVERIFIED HlgtCol;
+  TA4x4b FieldCol;
+  TA2x4b ClntCol;
+  char FormAlpha;
+  char CtrlAlpha;
+  __int64 field_146;
+};
+
+/* 4564 */
+struct TGUIShade_UNVERIFIED
+{
+  char r;
+  char g;
+  char b;
+  char a;
+  float c;
+  float s;
+  TA4b Clr;
+  float con;
+  float sat;
+};
+
+/* 4563 */
+struct __unaligned __declspec(align(2)) TGUISkinPalette_UNVERIFIED
+{
+  TGUIShade_UNVERIFIED BFormCol;
+  TGUIShade_UNVERIFIED BCtrlCol;
+  TGUIShade_UNVERIFIED BTextCol;
+  TGUIShade_UNVERIFIED BHlgtCol;
+  TA4b BFieldCol;
+  float Field_Alpha;
+  char BFormAlpha;
+  char BCtrlAlpha;
+};
+
+/* 4566 */
+struct TGUIItemView_UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  int PosX;
+  int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  __unaligned __declspec(align(1)) int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  void *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  char *__shifted(CP_StrGen,0x18) OrgName;
+  signed int Itemsn;
+  char _GAP_164[4];
+  TListItemArray *Item;
+  signed int IconSize;
+  signed int ItemHgt;
+  signed int ItemWdt;
+  signed int ItemPerCol;
+  TIconManager_TODO_UNVERIFIED *IconMngr;
+  __int64 IconRender;
+  signed int Highlighted;
+  unsigned int DragIdx;
+  unsigned int ActionID;
+  char _GAP_19C[4];
+  void *OnSelectItem;
+  void *OnRenameItem;
+  void *OnOpenItem;
+  void *OnRemoveItem;
+  void *OnDropItem;
+  char _GAP_1C8[8];
+  unsigned int ItemType;
+  int FixedItems;
+  TTextInfo_UNVERIFIED TextEdtInfo;
+  bool Renaming;
+  TA4b IconCol;
+  char _GAP_1E1[7];
+  void *CustomDrag;
+  void *OnUIScale;
+  __int64 _UNK_1F8;
+  unsigned int LastFindTime;
+  char _GAP_204[4];
+  char *__shifted(CP_StrGen,0x18) FindStr;
+};
+
+/* 4567 */
+struct TListItemArray
+{
+  TListItem_UNVERIFIED array[2];
+};
+
+/* 4570 */
+struct __unaligned __declspec(align(1)) TAbstractToolTip_UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  int PosX;
+  int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  void *pChild;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  int ShowTime;
+  char Showing;
+};
+
+/* 4571 */
+struct __unaligned __declspec(align(4)) TToolTip_UNVERIFIED
+{
+  TToolTip_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  int PosX;
+  int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  void *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  int ShowTime;
+  char Showing;
+  char _GAP_15D[11];
+  float Opacity;
+};
+
+/* 4572 */
+enum ChangeDisplaySettings_dwflags
+{
+  CDS_NONE = 0x0,
+  CDS_UPDATEREGISTRY = 0x1,
+  CDS_TEST = 0x2,
+  CDS_FULLSCREEN = 0x4,
+  CDS_GLOBAL = 0x8,
+  CDS_SET_PRIMARY = 0x10,
+  CDS_VIDEOPARAMETERS = 0x20,
+  CDS_ENABLE_UNSAFE_MODES = 0x100,
+  CDS_DISABLE_UNSAFE_MODES = 0x200,
+  CDS_RESET = 0x40000000,
+  CDS_RESET_EX = 0x20000000,
+  CDS_NORESET = 0x10000000,
+};
+
+/* 4573 */
+enum GetSystemMetrics_nIndex
+{
+  SM_ARRANGE = 0x38,
+  SM_CLEANBOOT = 0x43,
+  SM_CMONITORS = 0x50,
+  SM_CMOUSEBUTTONS = 0x2B,
+  SM_CONVERTIBLESLATEMODE = 0x2003,
+  SM_CXBORDER = 0x5,
+  SM_CXCURSOR = 0xD,
+  SM_CXDLGFRAME = 0x7,
+  SM_CXDOUBLECLK = 0x24,
+  SM_CXDRAG = 0x44,
+  SM_CXEDGE = 0x2D,
+  SM_CXFIXEDFRAME = 0x7,
+  SM_CXFOCUSBORDER = 0x53,
+  SM_CXFRAME = 0x20,
+  SM_CXFULLSCREEN = 0x10,
+  SM_CXHSCROLL = 0x15,
+  SM_CXHTHUMB = 0xA,
+  SM_CXICON = 0xB,
+  SM_CXICONSPACING = 0x26,
+  SM_CXMAXIMIZED = 0x3D,
+  SM_CXMAXTRACK = 0x3B,
+  SM_CXMENUCHECK = 0x47,
+  SM_CXMENUSIZE = 0x36,
+  SM_CXMIN = 0x1C,
+  SM_CXMINIMIZED = 0x39,
+  SM_CXMINSPACING = 0x2F,
+  SM_CXMINTRACK = 0x22,
+  SM_CXPADDEDBORDER = 0x5C,
+  SM_CXSCREEN = 0x0,
+  SM_CXSIZE = 0x1E,
+  SM_CXSIZEFRAME = 0x20,
+  SM_CXSMICON = 0x31,
+  SM_CXSMSIZE = 0x34,
+  SM_CXVIRTUALSCREEN = 0x4E,
+  SM_CXVSCROLL = 0x2,
+  SM_CYBORDER = 0x6,
+  SM_CYCAPTION = 0x4,
+  SM_CYCURSOR = 0xE,
+  SM_CYDLGFRAME = 0x8,
+  SM_CYDOUBLECLK = 0x25,
+  SM_CYDRAG = 0x45,
+  SM_CYEDGE = 0x2E,
+  SM_CYFIXEDFRAME = 0x8,
+  SM_CYFOCUSBORDER = 0x54,
+  SM_CYFRAME = 0x21,
+  SM_CYFULLSCREEN = 0x11,
+  SM_CYHSCROLL = 0x3,
+  SM_CYICON = 0xC,
+  SM_CYICONSPACING = 0x27,
+  SM_CYKANJIWINDOW = 0x12,
+  SM_CYMAXIMIZED = 0x3E,
+  SM_CYMAXTRACK = 0x3C,
+  SM_CYMENU = 0xF,
+  SM_CYMENUCHECK = 0x48,
+  SM_CYMENUSIZE = 0x37,
+  SM_CYMIN = 0x1D,
+  SM_CYMINIMIZED = 0x3A,
+  SM_CYMINSPACING = 0x30,
+  SM_CYMINTRACK = 0x23,
+  SM_CYSCREEN = 0x1,
+  SM_CYSIZE = 0x1F,
+  SM_CYSIZEFRAME = 0x21,
+  SM_CYSMCAPTION = 0x33,
+  SM_CYSMICON = 0x32,
+  SM_CYSMSIZE = 0x35,
+  SM_CYVIRTUALSCREEN = 0x4F,
+  SM_CYVSCROLL = 0x14,
+  SM_CYVTHUMB = 0x9,
+  SM_DBCSENABLED = 0x2A,
+  SM_DEBUG = 0x16,
+  SM_DIGITIZER = 0x5E,
+  SM_IMMENABLED = 0x52,
+  SM_MAXIMUMTOUCHES = 0x5F,
+  SM_MEDIACENTER = 0x57,
+  SM_MENUDROPALIGNMENT = 0x28,
+  SM_MIDEASTENABLED = 0x4A,
+  SM_MOUSEPRESENT = 0x13,
+  SM_MOUSEHORIZONTALWHEELPRESENT = 0x5B,
+  SM_MOUSEWHEELPRESENT = 0x4B,
+  SM_NETWORK = 0x3F,
+  SM_PENWINDOWS = 0x29,
+  SM_REMOTECONTROL = 0x2001,
+  SM_REMOTESESSION = 0x1000,
+  SM_SAMEDISPLAYFORMAT = 0x51,
+  SM_SECURE = 0x2C,
+  SM_SERVERR = 0x121,
+  SM_SHOWSOUNDS = 0x46,
+  SM_SHUTTINGDOWN = 0x2000,
+  SM_SLOWMACHINE = 0x49,
+  SM_STARTER = 0x58,
+  SM_SWAPBUTTON = 0x17,
+  SM_TABLETPC = 0x56,
+  SM_XVIRTUALSCREEN = 0x4C,
+  SM_YVIRTUALSCREEN = 0x4D,
+};
+
+/* 4574 */
+struct TCharEditForm_UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  int PosX;
+  int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  __unaligned __declspec(align(1)) int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  void *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  TSGCharacter *TCharData;
+};
+
+/* 4575 */
+struct __declspec(align(16)) __m128d
+{
+  double m128d_f64[2];
+};
+
+/* 4577 */
+struct TCursorActionProc
+{
+  void *Action;
+  TGUIForm *Page;
+};
+
+/* 4578 */
+struct TSGCharacter_UNVERIFIED
+{
+  __int64 VMT;
+  int RefCount;
+  char Name[16];
+  char SurName[16];
+  TA2f Physique;
+  int Height;
+  float Age;
+  TA2w SkinCol;
+  unsigned int HairStl;
+  TA4b HairCol;
+  __int16 FaceStyle0;
+  __int16 FaceStyle1;
+  char Voice[16];
+  int VoicePitch;
+  int Profession;
+  int Faction;
+  int LastLocale;
+  signed int EquipFlags;
+};
+
+/* 4579 */
+struct __unaligned __declspec(align(4)) TGSLines_UNVERIFIED
+{
+  TBaseGUISkin_vmt_struct *VMT;
+  signed int FrmWdtO;
+  signed int FrmWdtI;
+  signed int TtlHgt;
+  int _UNK_14;
+  int _UNK_18;
+  signed int BFrmWdtO;
+  signed int BFrmWdtI;
+  signed int BTtlHgt;
+  signed int BScrlWdt;
+  unsigned int CursorGraphic;
+  unsigned int Flags;
+  char _GAP_34[8];
+  TGUIColArray_UNVERIFIED FormCol;
+  TGUIColArray_UNVERIFIED CtrlCol;
+  TGUIColArray_UNVERIFIED CtrlBkg;
+  TGUIColArray_UNVERIFIED GlphCol;
+  TGUIColArray_UNVERIFIED HlgtCol;
+  TA4x4b FieldCol;
+  TA2x4b ClntCol;
+  char FormAlpha;
+  char CtrlAlpha;
+  TA4b BrdrCol;
+  TA4b BrdrCol2;
+  TA4b BrdrCol3;
+  char _GAP_152[6];
+  int _UNK_158;
+  int _UNK_15C;
+  int _UNK_160;
+  int field_164;
+  int SkinTex;
+};
+
+/* 4581 */
+struct TDataLibrary_UNVERIFIED
+{
+  __int64 VMT;
+  signed int Entriesn;
+  char _GAP_C[4];
+  TADataLibEntry *Entry;
+  char *__shifted(CP_StrGen,0x18) Source;
+};
+
+/* 4582 */
+struct TDataLibEntry_UNVERIFIED
+{
+  char Name[16];
+  unsigned int Pos;
+  unsigned int Size;
+  unsigned int FFmt;
+  int Flags;
+};
+
+/* 4583 */
+struct TADataLibEntry
+{
+  TDataLibEntry_UNVERIFIED array[2];
+};
+
+/* 4584 */
+struct __unaligned __declspec(align(4)) TPackageLibrary_UNVERIFIED
+{
+  __int64 VMT;
+  signed int Entriesn;
+  char _GAP_C[4];
+  TADataLibEntry *Entry;
+  char *__shifted(CP_StrGen,0x18) Source;
+  unsigned int FileHandle;
+  int DataPos;
+  int ThreadLock;
+};
+
+/* 4585 */
+struct __unaligned __declspec(align(4)) TMemBlockLibrary_UNVERIFIED
+{
+  __int64 VMT;
+  signed int Entriesn;
+  char _GAP_C[4];
+  TADataLibEntry *Entry;
+  char *__shifted(CP_StrGen,0x18) Source;
+  TAByte *DataMem;
+  unsigned int MemSize;
+};
+
+/* 4588 */
+struct __declspec(align(8)) TLightAlias_UNVERIFIED
+{
+  T3DNode_vmt_struct *VMT;
+  T3DNode_NodeFlag NodeFlag;
+  int ObjFlag;
+  TA3f LCnt;
+  int _xmmFiller1;
+  TA3f WCnt;
+  float RExt;
+  TA3f CBExt;
+  int _UNK_3C;
+  TA4x3f WrlMat;
+  TA4x3f LclMat;
+  TA4x4f GLMat;
+  int VisBits;
+  int ValidateID;
+  TA4x3f InjMat;
+  signed __int32 Children;
+  _BYTE _GAP_11C[4];
+  T3DNode *Child;
+  T3DNode *Parent;
+  TSector_TODO *Sector;
+  T3DNode *InstanceOf;
+  char Name[16];
+  signed __int32 KFControllers;
+  _BYTE _GAP_154[4];
+  unsigned __int64 *KFController;
+  TTetraRBD_TODO *PhysObj;
+  signed __int32 Instances;
+  _BYTE _GAP_16C[4];
+  unsigned __int64 *Instance;
+  TGridPos GridPos;
+  int ObjHandle;
+  int FunctionID;
+  int NodeState;
+  int _Unk_188;
+  char _GAP_18C[4];
+  int RNGSeed;
+  int GameClass;
+  unsigned __int64 *MetaData;
+  TA3f VisPos;
+  float CScl;
+  TAByte *PhysData;
+  char ThreadLock;
+  char LoopLock;
+  char FEnabled;
+  char WorldData;
+  _BYTE _GAP_1BC[4];
+  unsigned __int64 *ExtData;
+};
+
+/* 4590 */
+struct struc_100281CD0
+{
+  __int64 field_0[300];
+};
+
+/* 4591 */
+enum TGUIControl_class
+{
+  Button = 0x1,
+  CheckBox = 0x2,
+  IconButton = 0x3,
+  Slider = 0x4,
+  Label = 0x5,
+  EditBox = 0xB,
+  DropDown = 0xC,
+  ColorPicker = 0x11,
+};
+
+/* 4592 */
+struct __unaligned __declspec(align(4)) TReadKeyScreen__UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  signed int PosX;
+  signed int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  TAGUIForm *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  int BkCol0;
+  char _GAP_EC[4];
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  TA4b AbkCol;
+  int ShowTime;
+  int MsgTime;
+  int State1;
+  int InputID;
+};
+
+/* 4593 */
+struct PCP_StrGen
+{
+  char *__shifted(CP_StrGen,0x18) ptr;
+};
+
+/* 4594 */
+struct ACP_StrGen
+{
+  void *array[2];
+};
+
+/* 4595 */
+struct TInventory_UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  signed int PosX;
+  signed int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  __unaligned __declspec(align(1)) int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  TAGUIForm *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  int BkCol0;
+  char _GAP_EC[4];
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  bool OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  TCharacterView_UNVERIFIED *CharView;
+  __int64 IMotile;
+  TGUIItemContainer_FIX_END_UNVERIFIED *ItemView;
+  TItemRemHandler_UNVERIFIED *ItemRemHandler;
+};
+
+/* 4602 */
+struct __unaligned __declspec(align(1)) TCharacterView_UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  __int32 PosX;
+  int PosY;
+  __int32 Width;
+  __int32 Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  byte State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  int FormStyleEx;
+  char _GAP_67[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed __int32 Controls;
+  char _GAP_94[4];
+  TGUIControl *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  void *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  int Hgt;
+  void *BkCol0;
+  void *BkCol1;
+  char _GAP_F8[8];
+  __int32 Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  char OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  __int64 field_130;
+  int ModalResult;
+  char _GAP_13C[12];
+  int VS_TPos;
+  int VS_TLen;
+  int HS_TPos;
+  int HS_TLen;
+  signed __int32 CursorActions;
+  char _GAP_15C[4];
+  TACursorAction *CursorAction;
+  TCursorAction *CurCursorAction;
+  float Stereo0fs;
+  char _GAP_174[4];
+  void *OnWheelScroll;
+  void *OnWheelScrollCallee;
+  TNavCameraControl *Intrfc;
+  void *CurActUpd;
+  unsigned __int32 ViewportID;
+  TA2i ViewportSize;
+  char _GAP_1A4[4];
+  T3DView *View;
+  char _GAP_1B0[16];
+  TCamera *Camera;
+  char _GAP_1C8[4];
+  unsigned __int32 ValidateID;
+  unsigned __int32 FrameCounter;
+  int LastFPSTime;
+  char *__shifted(CP_StrGen,0x18) FPSText;
+  __int64 LastFrameTime;
+  __int64 ftimedelta;
+  TScene_TODO *TScene;
+  TNavCameraControl *NavControl;
+  void *CamControl;
+  void *OnDestroy;
+  TNavCameraControl *ChildNav;
+  TEventHandler_UNVERIFIED OnDrawOverlays;
+  void *OnSetHitCode;
+  void *OnSetHitCodeCallee;
+  void *OnCursorOver;
+  void *OnCursorOverCallee;
+  void *OnKeyDown;
+  void *OnKeyDownCallee;
+  void *OnRedraw;
+  void *OnRedrawCallee;
+  void *OnDragDropped;
+  void *OnDragDroppedCallee;
+  signed int AnaglyphMode;
+  char _GAP_27C[4];
+  unsigned int StillMSMode;
+  int StillMSLevel;
+  signed int StillMSPass;
+  bool DoRender;
+  bool UseBuffering;
+  bool ShowFrameRate;
+  bool ForceStillMS;
+  bool HaltRender;
+  char _GAP_291[3];
+  unsigned int CursorGraphic;
+  int DragType;
+  bool ViewInitialised;
+  bool FirstFrame;
+  bool ShowVersion;
+  bool TransparentBackground;
+  void *OnQueryDrop;
+  TGameEditControls_TODO *OnQueryDropCallee;
+  void *OnDragDrop;
+  TGameEditControls_TODO *OnDragDropCallee;
+  void *OnGetHitCode;
+  void *OnGetHitCodeCallee;
+  _BYTE gap2D0[270];
+  bool FShowVitals;
+  char PreviewMode;
+  char Compelled;
+};
+
+/* 4611 */
+struct TItemRemHandler_UNVERIFIED
+{
+  int RefCount;
+  char _GAP_4[4];
+  TObject *Owner;
+  void *RemProc;
+  TGUIItemContainer_FIX_END_UNVERIFIED *ContGUI;
+  __int64 ContMem;
+};
+
+/* 4596 */
+struct __unaligned __declspec(align(4)) TTransitionScreen_UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  signed int PosX;
+  signed int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  TAGUIForm *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  int BkCol0;
+  char _GAP_EC[4];
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  bool OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  int FadeTime;
+  char _GAP_15C[4];
+  void *Proc0;
+  void *Proc1;
+  TA4b AbkCol;
+  TA4b TxtCol;
+  int FadeState;
+  float MusicGain;
+  bool MusicFade;
+  char ShowText;
+  bool SlowFade;
+  bool TimeoutToCancel;
+};
+
+/* 4598 */
+struct __unaligned __declspec(align(4)) TProjectDesc_UNVERIFIED
+{
+  int Flags;
+  char Name[20];
+  char *__shifted(CP_StrGen,0x18) RootPath;
+  char *__shifted(CP_StrGen,0x18) ResPath;
+  int ObjLibs;
+  char _GAP_2C[4];
+  ACP_StrGen *ObjLib;
+  int TexLibs;
+  char _GAP_3C[4];
+  ACP_StrGen *TexLib;
+  int MatLibs;
+  char _GAP_4C[4];
+  ACP_StrGen *MatLib;
+  int ImgLibs;
+  char _GAP_5C[4];
+  int ImgLib;
+};
+
+/* 4597 */
+struct TProjectManager_UNVERIFIED
+{
+  void *VMT;
+  char *__shifted(CP_StrGen,0x18) FRootPath;
+  char *__shifted(CP_StrGen,0x18) FResPath;
+  TProjectDesc_UNVERIFIED Desc;
+  char _GAP_7C[4];
+  int ObjLibs;
+  char _GAP_84[4];
+  TAPackageLibrary *ObjLib;
+  int MatLibs;
+  char _GAP_94[4];
+  TAMemBlockLibrary *MatLib;
+  int DevMatLibs;
+  char _GAP_A4[4];
+  void *DevMatLib;
+  int ImgLibs;
+  char _GAP_B4[4];
+  void *ImgLib;
+};
+
+/* 4601 */
+struct TAPackageLibrary
+{
+  __int64 array[2];
+};
+
+/* 4600 */
+struct TAMemBlockLibrary
+{
+  __int64 array[2];
+};
+
+/* 4599 */
+struct TADataLibrary
+{
+  __int64 array[2];
+};
+
+/* 4603 */
+struct TPhysiquePicker_UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  signed int PosX;
+  signed int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  __unaligned __declspec(align(1)) int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  TAGUIForm *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  int BkCol0;
+  char _GAP_EC[4];
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  bool OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  __int64 field_158;
+  __int64 MorphCtrl;
+};
+
+/* 4604 */
+struct TTonePicker_UNVERIFIED
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  signed int PosX;
+  signed int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  int Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  __unaligned __declspec(align(1)) int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  char CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  char _GAP_94[4];
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  TAGUIForm *Child;
+  int FormClassID;
+  char _GAP_BC[4];
+  void *Owner;
+  int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  int BkCol0;
+  char _GAP_EC[4];
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  bool OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  TA2f CurPos;
+};
+
+/* 4605 */
+struct __unaligned __declspec(align(1)) TCharacterFactory_UNVERIFIED
+{
+  TGUIForm_vmt_struct *VMT;
+  int Parts;
+  char field_C[4];
+  TA3DNode *Part;
+  TA3DNode *RPart;
+  _BYTE gap20[16];
+  void *MorphCtrl;
+  void *BMorphCtrl;
+  void *SkinCtrl;
+  TMesh *SkinMesh;
+  TObjectDB_TODO_UNVERIFIED *ObjDB;
+  int Items;
+  char _GAP_5C[4];
+  void *Item;
+  char field_68[1016];
+  __int64 ProcMapGen;
+  _BYTE gap468[8448];
+  int RaceFlags;
+  int CurRace;
+  _BYTE gap2570[864];
+  __int64 CharDesc;
+  char field_28D8[100];
+  _BYTE gap293C[52];
+  int AssignPartMask;
+  _BYTE gap2974[4];
+  TATextureSet *TextureSet;
+  bool ProcTexture;
+};
+
+/* 4606 */
+struct TA3DNode
+{
+  __int64 array[18];
+};
+
+/* 4607 */
+struct TATextureSet
+{
+  __int64 array[2];
+};
+
+/* 4609 */
+struct TournamentCharacter
+{
+  TGUIForm_vmt_struct *Entered;
+  unsigned int WeaponID;
+  _BYTE gapC[32];
+  char RoundWon;
+  char _GAP_2D[3];
+};
+
+/* 4610 */
+struct TournamentEvent
+{
+  char Event[16];
+  _BYTE gap10[72];
+  char *__shifted(CP_StrGen,0x18) Description;
+};
+
+/* 4613 */
+struct __unaligned __declspec(align(1)) struc_303
+{
+  TGUIForm_vmt_struct *FormVMT;
+  int CAp0;
+  int CAp1;
+  float HS_Stp;
+  char _GAP_14[4];
+  void *StoreState;
+  signed int PosX;
+  signed int PosY;
+  int Width;
+  int Height;
+  int Border;
+  int BorderEx;
+  int BorderIn;
+  int ClientBtm;
+  int ClientTop;
+  int ClientRgt;
+  int ClientSpcX;
+  int ClientSpcY;
+  int BaseBorder;
+  int MinHeight;
+  int MinWidth;
+  float Style;
+  char State;
+  char _GAP_61[3];
+  char FormStyle;
+  char SpcType;
+  int FormStyleEx;
+  char _GAP_6A[2];
+  int HitCode;
+  int CaptureCode;
+  int FocusCode;
+  bool CaptureHit;
+  char FVisible;
+  char _GAP_7A[6];
+  void *Caption;
+  char _GAP_88[8];
+  signed int Controls;
+  signed __int32 _GAP_94;
+  TAControlArray *Control;
+  TGUIForm *Parent;
+  int Children;
+  char _GAP_AC[4];
+  TAGUIForm *Child;
+  signed int FormClassID;
+  signed int _GAP_BC;
+  void *Owner;
+  signed int ClntQds;
+  char _GAP_CC[4];
+  void *ClntQd;
+  int HS_Pos;
+  int VS_Pos;
+  float VS_Stp;
+  signed int Hgt;
+  int BkCol0;
+  char _GAP_EC[4];
+  void *BkCol1;
+  char _GAP_F8[8];
+  unsigned int Glyph;
+  char _GAP_104[4];
+  void *OnClose;
+  void *OnScroll;
+  bool OwnsControls;
+  char FreeOnClose;
+  char Closing;
+  char WantsFree;
+  char AniState;
+  char _GAP_11D[3];
+  signed int AniTime;
+  unsigned int AniType;
+  TGUITask_FIX_END *Task;
+  TBaseGUISkin_UNVERIFIED *FGUISkin;
+  int ModalResult;
+  char field_13C[12];
+  signed int VS_TPos;
+  signed int VS_TLen;
+  signed int HS_TPos;
+  signed int HS_TLen;
+  __int64 StoreFocusObj;
+  float StoreFocusCode;
+  int KBShortcuts;
+  TAKeyboardShort *KBShortcut;
+  TGUIForm *TaskMainForm;
+  TEventHandler_UNVERIFIED *OnRunTask;
+  _BYTE gap180[16];
+  signed int ValidateFlg;
+  signed int CValidateFlg;
+  char ModalLock;
+};
+
+/* 4614 */
+enum TGUITableItemFlag_ENUM : __int32
+{
+  Clear = 0,
+  GrayOut = 2,
 };
 
